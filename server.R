@@ -40,11 +40,11 @@ shinyServer(function(input, output, session) {
 #  })
   
   output$csel <- renderUI({
-    selectInput("csel","Select countries", data.all$Country_Name, "Switzerland", multiple = TRUE)
+    selectInput("csel","Countries", data.all$Country_Name, "Switzerland", multiple = TRUE)
   })
 
   output$dsel <- renderUI({
-    selectInput("dsel","Select Dimension", paste0("Dimension_",1:7), "Dimension_1", multiple = TRUE)
+    selectInput("dsel","Dimensions", paste0("Dimension_",1:7), "Dimension_1", multiple = TRUE)
   })
   
   output$dims <- renderPlot({
