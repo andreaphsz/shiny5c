@@ -13,7 +13,7 @@ shinyServer(function(input, output, session) {
                  colorvar = input$facdim1,
                  options = list(projection = input$projection,
                               width = 900, height = 500,
-                              region = input$region, gvis.editor="test"))
+                              region = input$region))
   })
 
   output$country2 <- renderUI({
@@ -21,7 +21,7 @@ shinyServer(function(input, output, session) {
   })
 
   output$dim2 <- renderUI({
-    selectInput("dim2","Dimensions", paste0("Dimension_",1:7), "Dimension_1", multiple = TRUE)
+    selectInput("dim2","Dimensions", paste0("Dimension_",1:7), paste0("Dimension_",1:3), multiple = TRUE)
   })
   
   output$dimplot <- renderPlot({
@@ -32,7 +32,7 @@ shinyServer(function(input, output, session) {
         gather(Dimension, Value, contains("Dimension"))
     
       p <- ggplot(data, aes(Dimension, Value, fill=Country_Name))
-      p + geom_col(position="dodge")
+      p + geom_col(position="dodge") + theme_bw()
     }
   })
   
@@ -53,7 +53,7 @@ shinyServer(function(input, output, session) {
     #  select_(.dots=c(input$dim3, input$fac3))
     
     p <- ggplot(data.all, aes_string(input$dim3, input$fac3, size=input$size3))
-    p + geom_point()
+    p + geom_point() + theme_bw()
   })
   
   ## see https://gitlab.com/snippets/16220

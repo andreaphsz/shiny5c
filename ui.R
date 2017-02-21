@@ -15,11 +15,12 @@ dimensions <- paste0("Dimension_", 1:7)
 projections <- c("mercator", "albers", "lambert","kavrayskiy-vii")
   
 shinyUI(fluidPage(
-  titlePanel("5C"),
+  titlePanel("5C Visualisations"),
   sidebarLayout(
     sidebarPanel(
       tags$head(
-        tags$style(type='text/css', ".col-sm-4 { max-width: 270px; }")
+        tags$style(type='text/css', ".col-sm-4 { max-width: 270px; margin-top: 41px;}"),
+        tags$style(type='text/css', ".well { background-color: #fafafa; }")
       ),
       conditionalPanel(condition="input.conditionedPanels==1",
         selectInput("region", "Region:", regions),
@@ -39,15 +40,15 @@ shinyUI(fluidPage(
     ),
     mainPanel(
       tabsetPanel(
-        tabPanel("Maps", htmlOutput("gvismap"), icon = icon("globe"), value=1),
-        tabPanel("Dimensions",  plotOutput("dimplot"), value=2),
+        tabPanel("Map", htmlOutput("gvismap"), icon=icon("globe"), value=1),
+        tabPanel("Dimensions",  plotOutput("dimplot"), icon=icon("bar-chart"), value=2),
         tabPanel("Dim x Factor", div(       
           style = "position:relative",       
           plotOutput("dimxfac",                  
                      hover = hoverOpts("plot_hover", 
                                        delay = 100, delayType = "debounce")),       
           uiOutput("hover_info")     
-          ), value=3   ),
+          ), icon=icon("times"), value=3),
         id = "conditionedPanels"
       )
     )
