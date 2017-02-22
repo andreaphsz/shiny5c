@@ -56,6 +56,21 @@ shinyServer(function(input, output, session) {
     p + geom_point() + theme_bw()
   })
   
+  output$country99 <- renderUI({
+    selectInput("country99","Countries", data.all$Country_Name, "Switzerland", multiple = TRUE)
+  })
+
+  output$dim99 <- renderUI({
+    selectInput("dim99","Dimensions", paste0("Dimension_",1:7), paste0("Dimension_",1:3), multiple = TRUE)
+  })
+  
+  output$testplot <- renderGvis({
+    data <- data.all %>%
+      filter(Country_Name %in% input$country99)
+    
+    gvisColumnChart(data, xvar="Country_Name", yvar=input$dim99)
+  })
+  
   ## see https://gitlab.com/snippets/16220
   output$hover_info <- renderUI({     
     hover <- input$plot_hover     

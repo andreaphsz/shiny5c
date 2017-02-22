@@ -36,6 +36,10 @@ shinyUI(fluidPage(
         uiOutput("dim3"),
         uiOutput("fac3"),
         uiOutput("size3")
+      ),
+      conditionalPanel(condition="input.conditionedPanels==99",
+         uiOutput("country99"),
+         uiOutput("dim99")
       )
     ),
     mainPanel(
@@ -49,6 +53,7 @@ shinyUI(fluidPage(
                                        delay = 100, delayType = "debounce")),       
           uiOutput("hover_info")     
           ), icon=icon("times"), value=3),
+        tabPanel("test",  htmlOutput("testplot"),  value=99),
         id = "conditionedPanels"
       )
     )
