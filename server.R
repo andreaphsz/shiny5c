@@ -3,6 +3,8 @@ library(googleVis)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+#library(plotly)
+#library(RColorBrewer)
 
 source("global.R")
 
@@ -11,9 +13,10 @@ shinyServer(function(input, output, session) {
   output$gvismap <- renderGvis({
     gvisGeoChart(data.all, locationvar="Country_Name", 
                  colorvar = input$facdim1,
-                 options = list(projection = input$projection,
+                 options = list(projection = "mercator",
                               width = 900, height = 500,
-                              region = input$region))
+                              region = input$region,
+                              colorAxis = "{colors:['red','green']}"))
   })
 
   output$country2 <- renderUI({
@@ -24,6 +27,10 @@ shinyServer(function(input, output, session) {
     selectInput("dim2","Dimensions", paste0("Dimension_",1:7), paste0("Dimension_",1:3), multiple = TRUE)
   })
   
+  output$xaxis  <- renderUI({
+    radioButtons("xaxis", "x-Axis", c("Dimension","Country"), selected = "Dimension")
+  })
+  
   output$dimplot <- renderPlot({
     if(!is.null(input$dim2)) {
       data <- data.all %>% 
@@ -31,8 +38,13 @@ shinyServer(function(input, output, session) {
         select_("Country_Name", .dots=input$dim2) %>%
         gather(Dimension, Value, contains("Dimension"))
     
-      p <- ggplot(data, aes(Dimension, Value, fill=Country_Name))
-      p + geom_col(position="dodge") + theme_bw()
+      if(input$xaxis=="Dimension") {
+        p <- ggplot(data, aes(Dimension, Value, fill=Country_Name))
+      } else {
+        p <- ggplot(data, aes(Country_Name, Value, fill=Dimension))
+      }
+      
+      p + geom_col(position="dodge") + theme_bw() + scale_fill_hue(l=50)
     }
   })
   
@@ -70,6 +82,26 @@ shinyServer(function(input, output, session) {
     
     gvisColumnChart(data, xvar="Country_Name", yvar=input$dim99)
   })
+  
+#  output$testplot2 <- renderPlotly({
+    #pdf(NULL) # http://stackoverflow.com/questions/36777416/plotly-plot-not-rendering-on-shiny-server
+    ## https://github.com/ropensci/plotly/issues/494
+    #if (names(dev.cur()) != "null device") dev.off()
+    #pdf(NULL)
+#    if(!is.null(input$dim2)) {
+#      data <- data.all %>% 
+#        filter(Country_Name %in% input$country2) %>%
+#        select_("Country_Name", .dots=input$dim2) %>%
+#        gather(Dimension, Value, contains("Dimension"))
+      
+#      p <- ggplot(data, aes(Dimension, Value, fill=Country_Name))
+#      p <- p + geom_col(position="dodge") + theme_bw()
+      
+#      ggplotly(p)
+#    }
+#  })
+  
+  
   
   ## see https://gitlab.com/snippets/16220
   output$hover_info <- renderUI({     

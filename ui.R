@@ -1,5 +1,5 @@
 library(shiny)
-library(leaflet)
+library(plotly)
 
 regions <- c("World" = "world",
              "Africa"= "002", 
@@ -25,12 +25,13 @@ shinyUI(fluidPage(
       conditionalPanel(condition="input.conditionedPanels==1",
         selectInput("region", "Region:", regions),
         #selectInput("factor", "Factor:", factors),
-        selectInput("facdim1", "Factor/Dimension", c(factors, dimensions)),
-        selectInput("projection", "Map Projection:", projections)
+        selectInput("facdim1", "Factor/Dimension", c(factors, dimensions))
+        #selectInput("projection", "Map Projection:", projections)
       ),
       conditionalPanel(condition="input.conditionedPanels==2",
         uiOutput("country2"), 
-        uiOutput("dim2")
+        uiOutput("dim2"),
+        uiOutput("xaxis")
       ),
       conditionalPanel(condition="input.conditionedPanels==3",
         uiOutput("dim3"),
@@ -54,6 +55,7 @@ shinyUI(fluidPage(
           uiOutput("hover_info")     
           ), icon=icon("times"), value=3),
         tabPanel("test",  htmlOutput("testplot"),  value=99),
+        #tabPanel("test2",  plotlyOutput("testplot2"),  value=98),
         id = "conditionedPanels"
       )
     )
