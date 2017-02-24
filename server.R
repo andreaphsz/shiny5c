@@ -57,15 +57,22 @@ shinyServer(function(input, output, session) {
   })
   
   output$size3 <- renderUI({
-    selectInput("size3","Size", paste0("Factor_",1:10), "Factor_2")
+    selectInput("size3","Size", c("(none)",paste0("Factor_",1:10)), "Factor_2")
   })
   
   output$dimxfac <- renderPlot({
     #data <- data.all %>%
     #  select_(.dots=c(input$dim3, input$fac3))
     
-    p <- ggplot(data.all, aes_string(input$dim3, input$fac3, size=input$size3))
-    p + geom_point() + theme_bw()
+    if(input$size3 != "(none)") {
+      p <- ggplot(data.all, aes_string(input$dim3, input$fac3, size=input$size3, color="Country_Cluster"))
+      p <- p + geom_point() 
+    }else{
+      p <- ggplot(data.all, aes_string(input$dim3, input$fac3, color="Country_Cluster"))
+      p <- p + geom_point(size=3)
+    }
+    
+    p + theme_bw()
   })
   
   output$country99 <- renderUI({
@@ -120,10 +127,11 @@ shinyServer(function(input, output, session) {
     ## z-index is set so we are sure are tooltip will be on top     
     style <- paste0("position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85);",                     "left:", left_px + 2, "px; top:", top_px + 2, "px;")         
     ## actual tooltip created as wellPanel     
-    wellPanel(style = style, HTML(paste0(point$Country_Name, "<br>",
+    size <- ifelse(input$size3=="(none)", "(none)", round(point[,input$size3],2))
+    wellPanel(style = style, HTML(paste0("<b>",point$Country_Name,"</b>", "<br>",
                                          "Dim: ", round(point[,input$dim3],2), "<br>",
                                          "Fac: ", round(point[,input$fac3],2), "<br>",
-                                         "Size: ", round(point[,input$size3],2)))
+                                         "Size: ", size))
     )   
   })
   
