@@ -1,5 +1,4 @@
 library(shiny)
-library(plotly)
 
 regions <- c("World" = "world",
              "Africa"= "002", 
@@ -20,7 +19,9 @@ shinyUI(fluidPage(
     sidebarPanel(
       tags$head(
         tags$style(type='text/css', ".col-sm-4 { max-width: 270px; margin-top: 41px;}"),
-        tags$style(type='text/css', ".well { background-color: #fafafa; }")
+        tags$style(type='text/css', ".well { background-color: #fafafa; }"),
+        tags$style(type='text/css', ".multi  { border-color: #aaa; }"),
+        tags$style(type='text/css', ".single { border-color: #aaa; }")
       ),
       conditionalPanel(condition="input.conditionedPanels==1",
         selectInput("region", "Region:", regions),
@@ -34,14 +35,15 @@ shinyUI(fluidPage(
         uiOutput("xaxis")
       ),
       conditionalPanel(condition="input.conditionedPanels==3",
+        uiOutput("clu3"),
         uiOutput("dim3"),
         uiOutput("fac3"),
         uiOutput("size3")
-      ),
-      conditionalPanel(condition="input.conditionedPanels==99",
-         uiOutput("country99"),
-         uiOutput("dim99")
       )
+#      conditionalPanel(condition="input.conditionedPanels==99",
+#         uiOutput("country99"),
+#         uiOutput("dim99")
+#      )
     ),
     mainPanel(
       tabsetPanel(
@@ -54,7 +56,7 @@ shinyUI(fluidPage(
                                        delay = 100, delayType = "debounce")),       
           uiOutput("hover_info")     
           ), icon=icon("times"), value=3),
-        tabPanel("test",  htmlOutput("testplot"),  value=99),
+        #tabPanel("test",  htmlOutput("testplot"),  value=99),
         #tabPanel("test2",  plotlyOutput("testplot2"),  value=98),
         id = "conditionedPanels"
       )

@@ -47,6 +47,11 @@ shinyServer(function(input, output, session) {
       p + geom_col(position="dodge") + theme_bw() + scale_fill_hue(l=50)
     }
   })
+
+  output$clu3 <- renderUI({
+    all <- unique(data.all$Country_Cluster)
+    selectInput("clu3","Country Cluster", all, all, multiple = TRUE)  
+  })
   
   output$dim3 <- renderUI({
     selectInput("dim3","Dimension", paste0("Dimension_",1:7), "Dimension_1")
@@ -61,34 +66,33 @@ shinyServer(function(input, output, session) {
   })
   
   output$dimxfac <- renderPlot({
-    #data <- data.all %>%
-    #  select_(.dots=c(input$dim3, input$fac3))
+    data <- data.all %>%
+      filter(Country_Cluster %in% input$clu3)
     
     if(input$size3 != "(none)") {
-      p <- ggplot(data.all, aes_string(input$dim3, input$fac3, size=input$size3, color="Country_Cluster"))
+      p <- ggplot(data, aes_string(input$dim3, input$fac3, size=input$size3, color="Country_Cluster"))
       p <- p + geom_point() 
     }else{
-      p <- ggplot(data.all, aes_string(input$dim3, input$fac3, color="Country_Cluster"))
+      p <- ggplot(data, aes_string(input$dim3, input$fac3, color="Country_Cluster"))
       p <- p + geom_point(size=3)
     }
-    
-    p + theme_bw()
+    p <- p + theme_bw()
+    p
   })
   
-  output$country99 <- renderUI({
-    selectInput("country99","Countries", data.all$Country_Name, "Switzerland", multiple = TRUE)
-  })
+#  output$country99 <- renderUI({
+#    selectInput("country99","Countries", data.all$Country_Name, "Switzerland", multiple = TRUE)
+#  })
 
-  output$dim99 <- renderUI({
-    selectInput("dim99","Dimensions", paste0("Dimension_",1:7), paste0("Dimension_",1:3), multiple = TRUE)
-  })
+#  output$dim99 <- renderUI({
+#    selectInput("dim99","Dimensions", paste0("Dimension_",1:7), paste0("Dimension_",1:3), multiple = TRUE)
+#  })
   
-  output$testplot <- renderGvis({
-    data <- data.all %>%
-      filter(Country_Name %in% input$country99)
-    
-    gvisColumnChart(data, xvar="Country_Name", yvar=input$dim99)
-  })
+#  output$testplot <- renderGvis({
+#    data <- data.all %>%
+#      filter(Country_Name %in% input$country99)
+#    gvisColumnChart(data, xvar="Country_Name", yvar=input$dim99)
+#  })
   
 #  output$testplot2 <- renderPlotly({
     #pdf(NULL) # http://stackoverflow.com/questions/36777416/plotly-plot-not-rendering-on-shiny-server
