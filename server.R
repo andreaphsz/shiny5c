@@ -53,29 +53,36 @@ shinyServer(function(input, output, session) {
     radioButtons("cntorclus3", "Clusters/Countries", c("Clusters", "Countries"), selected = "Clusters", inline = TRUE)
   })
   
-#  output$clu3 <- renderUI({
-#    all <- unique(data.all$Country_Cluster)
-#    selectInput("clu3","Country Clusters", all, all, multiple = TRUE)  
-#  })
-  
-#  output$country3 <- renderUI({
-#    selectInput("country3","Countries", data.all$Country_Name, "Switzerland", multiple = TRUE)
-#  })
-  
-  output$cntclus3 <- renderUI({
+  output$clus3 <- renderUI({
     if(is.null(input$cntorclus3)) return(NULL)
-    
+  
     if (input$cntorclus3 == "Clusters") {
       all <- unique(data.all$Country_Cluster)
-      selectInput("clus3","Country Clusters", all, all, multiple = TRUE)
-    } else {
-      clus <- input$cntclus3
+      if(is.null(input$cnt3)) {
+        selected <- all
+      } else {
+        selected <- data.all %>%
+          filter(Country_Name %in% input$cnt3) %>%
+          select(Country_Cluster)
+        selected  <- do.call(c, selected)
+      }
+      selectInput("clus3","Country Clusters", all, selected, multiple = TRUE)
+    }
+  })
+
+  #output$test <- renderPrint({
+  #  input$cnt3
+  #})
+  
+  output$cnt3 <- renderUI({
+    if(is.null(input$cntorclus3)) return(NULL)
+    
+    if (input$cntorclus3 == "Countries") {
       selected <- data.all %>%
-        filter(Country_Cluster %in% clus) %>%
+        filter(Country_Cluster %in% input$clus3) %>%
         select(Country_Name)
       selected  <- do.call(c, selected)
-      #selectInput("cnt3","Countries", data.all$Country_Name, selected, multiple = TRUE)
-      selectInput("cnt3","Countries", data.all$Country_Name, data.all$Country_Name, multiple = TRUE)
+      selectInput("cnt3","Countries", data.all$Country_Name, selected, multiple = TRUE)
     }
   })
   
@@ -91,14 +98,13 @@ shinyServer(function(input, output, session) {
     selectInput("size3","Size", c("(none)",paste0("Factor_",1:10)), "Factor_2")
   })
   
-  
   output$dimxfac <- renderPlot({
     if(input$cntorclus3 == "Clusters") {
       data <- data.all %>%
-        filter(Country_Cluster %in% input$cntclus3)
+        filter(Country_Cluster %in% input$clus3)
     } else {
       data <- data.all %>%
-        filter(Country_Name %in% input$cntclus3)
+        filter(Country_Name %in% input$cnt3)
     }
     
     if(input$size3 != "(none)") {

@@ -38,7 +38,7 @@ shinyUI(fluidPage(
         uiOutput("cntorclus3"),
         #uiOutput("cntclus3"),
         uiOutput("clus3"),
-        #uiOutput("cnt3"),
+        uiOutput("cnt3"),
         uiOutput("dim3"),
         uiOutput("fac3"),
         uiOutput("size3")
@@ -59,7 +59,7 @@ shinyUI(fluidPage(
                                        delay = 100, delayType = "debounce")),       
           uiOutput("hover_info")     
           ), icon=icon("times"), value=3),
-        #tabPanel("test",  htmlOutput("testplot"),  value=99),
+        #tabPanel("test",  htmlOutput("test"),  value=99),
         #tabPanel("test2",  plotlyOutput("testplot2"),  value=98),
         id = "conditionedPanels"
       )
