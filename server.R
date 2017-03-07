@@ -44,7 +44,8 @@ shinyServer(function(input, output, session) {
         p <- ggplot(data, aes(Country_Name, Value, fill=Dimension))
       }
       
-      p + geom_col(position="dodge") + theme_bw() + scale_fill_hue(l=50)
+      p <- p + geom_col(position="dodge") + theme_bw() + scale_fill_hue(l=50)
+      p + theme(text = element_text(size=16), axis.text = element_text(size=16), axis.title=element_blank())
     }
   })
 
@@ -76,7 +77,8 @@ shinyServer(function(input, output, session) {
       p <- ggplot(data, aes_string(input$dim3, input$fac3, color="Country_Cluster"))
       p <- p + geom_point(size=3)
     }
-    p <- p + theme_bw()
+    p <- p + theme_bw() 
+    p <- p + theme(text = element_text(size=16), axis.text = element_text(size=16))
     p
   })
   
