@@ -14,9 +14,11 @@ shinyServer(function(input, output, session) {
     gvisGeoChart(data.all, locationvar="Country_Name", 
                  colorvar = input$facdim1,
                  options = list(projection = "mercator",
-                              width = 900, height = 500,
+                              width = 800, height = 580,
                               region = input$region,
-                              colorAxis = "{colors:['#ABABAB','#9FC7F0']}"))
+                              colorAxis = "{colors:['#ABABAB','#9FC7F0']}",
+                              legend = "{numberFormat:'#.##'}")
+                  )
   })
 
   output$country2 <- renderUI({
