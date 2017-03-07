@@ -21,7 +21,9 @@ shinyUI(fluidPage(
         tags$style(type='text/css', ".col-sm-4 { max-width: 270px; margin-top: 41px;}"),
         tags$style(type='text/css', ".well { background-color: #fafafa; }"),
         tags$style(type='text/css', ".multi  { border-color: #aaa; }"),
-        tags$style(type='text/css', ".single { border-color: #aaa; }")
+        tags$style(type='text/css', ".single { border-color: #aaa; }"),
+        tags$style(type='text/css', "h2 { color:red; font-size:0px; background-size: 100px auto;
+                   background-image: url(5clogo.jpg); background-repeat: no-repeat;margin: auto; height:75px;}")
       ),
       conditionalPanel(condition="input.conditionedPanels==1",
         selectInput("region", "Region:", regions),
