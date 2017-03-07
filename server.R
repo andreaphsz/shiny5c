@@ -95,7 +95,8 @@ shinyServer(function(input, output, session) {
   })
   
   output$size3 <- renderUI({
-    selectInput("size3","Size", c("(none)",paste0("Factor_",1:10)), "Factor_2")
+    facdim <- c(paste0("Factor_",1:10), paste0("Dimension_",1:7))
+    selectInput("size3","Size", c("(none)", facdim), "Factor_2")
   })
   
   output$dimxfac <- renderPlot({
