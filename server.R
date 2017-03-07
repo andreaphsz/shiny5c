@@ -49,9 +49,34 @@ shinyServer(function(input, output, session) {
     }
   })
 
-  output$clu3 <- renderUI({
-    all <- unique(data.all$Country_Cluster)
-    selectInput("clu3","Country Cluster", all, all, multiple = TRUE)  
+  output$cntorclus3  <- renderUI({
+    radioButtons("cntorclus3", "Clusters/Countries", c("Clusters", "Countries"), selected = "Clusters", inline = TRUE)
+  })
+  
+#  output$clu3 <- renderUI({
+#    all <- unique(data.all$Country_Cluster)
+#    selectInput("clu3","Country Clusters", all, all, multiple = TRUE)  
+#  })
+  
+#  output$country3 <- renderUI({
+#    selectInput("country3","Countries", data.all$Country_Name, "Switzerland", multiple = TRUE)
+#  })
+  
+  output$cntclus3 <- renderUI({
+    if(is.null(input$cntorclus3)) return(NULL)
+    
+    if (input$cntorclus3 == "Clusters") {
+      all <- unique(data.all$Country_Cluster)
+      selectInput("clus3","Country Clusters", all, all, multiple = TRUE)
+    } else {
+      clus <- input$cntclus3
+      selected <- data.all %>%
+        filter(Country_Cluster %in% clus) %>%
+        select(Country_Name)
+      selected  <- do.call(c, selected)
+      #selectInput("cnt3","Countries", data.all$Country_Name, selected, multiple = TRUE)
+      selectInput("cnt3","Countries", data.all$Country_Name, data.all$Country_Name, multiple = TRUE)
+    }
   })
   
   output$dim3 <- renderUI({
@@ -66,9 +91,15 @@ shinyServer(function(input, output, session) {
     selectInput("size3","Size", c("(none)",paste0("Factor_",1:10)), "Factor_2")
   })
   
+  
   output$dimxfac <- renderPlot({
-    data <- data.all %>%
-      filter(Country_Cluster %in% input$clu3)
+    if(input$cntorclus3 == "Clusters") {
+      data <- data.all %>%
+        filter(Country_Cluster %in% input$cntclus3)
+    } else {
+      data <- data.all %>%
+        filter(Country_Name %in% input$cntclus3)
+    }
     
     if(input$size3 != "(none)") {
       p <- ggplot(data, aes_string(input$dim3, input$fac3, size=input$size3, color="Country_Cluster"))

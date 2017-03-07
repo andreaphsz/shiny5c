@@ -35,7 +35,10 @@ shinyUI(fluidPage(
         uiOutput("xaxis")
       ),
       conditionalPanel(condition="input.conditionedPanels==3",
-        uiOutput("clu3"),
+        uiOutput("cntorclus3"),
+        #uiOutput("cntclus3"),
+        uiOutput("clus3"),
+        #uiOutput("cnt3"),
         uiOutput("dim3"),
         uiOutput("fac3"),
         uiOutput("size3")
