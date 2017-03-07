@@ -16,7 +16,7 @@ shinyServer(function(input, output, session) {
                  options = list(projection = "mercator",
                               width = 900, height = 500,
                               region = input$region,
-                              colorAxis = "{colors:['red','green']}"))
+                              colorAxis = "{colors:['#ABABAB','#9FC7F0']}"))
   })
 
   output$country2 <- renderUI({
