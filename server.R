@@ -9,68 +9,125 @@ library(tidyr)
 source("global.R")
 
 shinyServer(function(input, output, session) {
-   
-  output$gvismap <- renderGvis({
-    gvisGeoChart(data.all, locationvar="Country_Name", 
-                 colorvar = input$facdim1,
-                 options = list(projection = "mercator",
-                              width = 800, height = 580,
-                              region = input$region,
-                              colorAxis = "{colors:['#ABABAB','#9FC7F0']}",
-                              legend = "{numberFormat:'#.##'}")
-                  )
-  })
+    sel1 <- c("Importance (5C Dim)", "Achievement (5C Dim)", "Gap (5C Dim)", "Individual Factors", "Country Factors")
+    cfacs <- c("Gini_Country_Factor_1", "GDP_Country_Factor_2", paste0("Country_Factor_", 3:10))
+    ## Map Tab ------------------------------------------
+    output$gvismap <- renderGvis({
+        if(is.null(input$facdimsel1)) return(NULL)
+        
+        facdim <- switch(input$facdimsel1,
+                         "Importance (5C Dim)" = input$dim11,
+                         "Achievement (5C Dim)" = input$dim21,
+                         "Gap (5C Dim)" = input$dim31,
+                         "Individual Factors" =  input$fac11,
+                         "Country Factors" = input$fac21
+                         )
+        
+        if(is.null(facdim)) return(NULL)
+        
+        gvisGeoChart(data.all, locationvar="Country_Name", 
+                     colorvar = facdim,
+                     options = list(projection = "mercator",
+                                    width = 800, height = 580,
+                                    region = input$region,
+                                    colorAxis = "{colors:['#ABABAB','#9FC7F0']}",
+                                    legend = "{numberFormat:'#.##'}")
+                     )
+    })
 
-  output$country2 <- renderUI({
-    selectInput("country2","Countries", data.all$Country_Name, "Switzerland", multiple = TRUE)
-  })
+    output$facdimsel1 <- renderUI({    
+        radioButtons("facdimsel1", "Dimension/Factor", sel1, selected = sel1[1])
+    })
 
-  output$dim2 <- renderUI({
-    selectInput("dim2","Dimensions", paste0("Dimension_",1:7), paste0("Dimension_",1:3), multiple = TRUE)
-  })
-  
-  output$xaxis  <- renderUI({
-    radioButtons("xaxis", "x-Axis", c("Dimension","Country"), selected = "Dimension")
-  })
-  
-  output$dimplot <- renderPlot({
-    if(!is.null(input$dim2)) {
-      data <- data.all %>% 
-        filter(Country_Name %in% input$country2) %>%
-        select_("Country_Name", .dots=input$dim2) %>%
-        gather(Dimension, Value, contains("Dimension"))
+    output$dim11 <- renderUI({
+        if(is.null(input$facdimsel1)) return(NULL)
+        if(input$facdimsel1 == sel1[1]) {
+            selectInput("dim11", "", paste0("Importance_", 1:7), "Importance_1")
+        }
+    })
+    output$dim21 <- renderUI({
+        if(is.null(input$facdimsel1)) return(NULL)
+        if(input$facdimsel1 == sel1[2]) {
+            selectInput("dim21", "", paste0("Achievement_", 1:7), "Achievement_1")
+        }
+    })
+    output$dim31 <- renderUI({
+        if(is.null(input$facdimsel1)) return(NULL)
+        if(input$facdimsel1 == sel1[3]) {
+            selectInput("dim31", "", paste0("Gap_", 1:7), "Gap_1")
+        }
+    })
+    output$fac11 <- renderUI({
+        if(is.null(input$facdimsel1)) return(NULL)
+        if(input$facdimsel1 == sel1[4]) {
+            selectInput("fac11", "", paste0("Individual_Factor_", 1:12), "Individual_Factor_1")
+        }
+    })
+    output$fac21 <- renderUI({
+        if(is.null(input$facdimsel1)) return(NULL)
+        if(input$facdimsel1 == sel1[5]) {
+            
+            selectInput("fac21", "", cfacs, cfacs[1])
+        }
+    })
+    ## Dimensions Tab ------------------------------------------
+    output$country2 <- renderUI({
+        selectInput("country2","Countries", data.all$Country_Name, "Switzerland", multiple = TRUE)
+    })
     
-      if(input$xaxis=="Dimension") {
-        p <- ggplot(data, aes(Dimension, Value, fill=Country_Name))
-      } else {
-        p <- ggplot(data, aes(Country_Name, Value, fill=Dimension))
-      }
-      
-      p <- p + geom_col(position="dodge") + theme_bw() + scale_fill_hue(l=50)
-      p + theme(text = element_text(size=16), axis.text = element_text(size=16), axis.title=element_blank())
-    }
+    output$dim12 <- renderUI({
+        selectInput("dim12","Importance", paste0("Importance_",1:7), "Importance_1", multiple = TRUE)
+    })
+    output$dim22 <- renderUI({
+        selectInput("dim22","Achievement", paste0("Achievement_",1:7), "Achievement_1", multiple = TRUE)
+    })
+    output$dim32 <- renderUI({
+        selectInput("dim32","Gap", paste0("Gap_",1:7), "Gap_1", multiple = TRUE)
+    })
+  
+    output$xaxis  <- renderUI({
+        radioButtons("xaxis", "x-Axis", c("Dimension","Country"), selected = "Dimension")
+    })
+  
+    output$dimplot <- renderPlot({
+        if(is.null(input$dim12) & is.null(input$dim22) & is.null(input$dim32)) return(NULL)
+        data <- data.all %>% 
+            filter(Country_Name %in% input$country2) %>%
+            select_("Country_Name", .dots=c(input$dim12, input$dim22, input$dim32)) %>%
+            gather(Dimension, Value, matches("Importance|Achievement|Gap"))
+        
+        if(input$xaxis=="Dimension") {
+            p <- ggplot(data, aes(Dimension, Value, fill=Country_Name))
+        } else {
+            p <- ggplot(data, aes(Country_Name, Value, fill=Dimension))
+        }
+        
+        p <- p + geom_col(position="dodge") + theme_bw() + scale_fill_hue(l=50)
+        p + theme(text = element_text(size=16), axis.text = element_text(size=16), axis.title=element_blank())
+    
   })
 
-  output$cntorclus3  <- renderUI({
-    radioButtons("cntorclus3", "Clusters/Countries", c("Clusters", "Countries"), selected = "Clusters", inline = TRUE)
-  })
+    ## Dimensions Tab ------------------------------------------
+    output$cntorclus3  <- renderUI({
+        radioButtons("cntorclus3", "Clusters/Countries", c("Clusters", "Countries"), selected = "Clusters", inline = TRUE)
+    })
   
-  output$clus3 <- renderUI({
-    if(is.null(input$cntorclus3)) return(NULL)
-  
-    if (input$cntorclus3 == "Clusters") {
-      all <- unique(data.all$Country_Cluster)
-      if(is.null(input$cnt3)) {
-        selected <- all
-      } else {
-        selected <- data.all %>%
-          filter(Country_Name %in% input$cnt3) %>%
-          select(Country_Cluster)
-        selected  <- do.call(c, selected)
-      }
-      selectInput("clus3","Country Clusters", all, selected, multiple = TRUE)
-    }
-  })
+    output$clus3 <- renderUI({
+        if(is.null(input$cntorclus3)) return(NULL)
+        
+        if (input$cntorclus3 == "Clusters") {
+            all <- unique(data.all$Country_Cluster)
+            if(is.null(input$cnt3)) {
+                selected <- all
+            } else {
+                selected <- data.all %>%
+                    filter(Country_Name %in% input$cnt3) %>%
+                    select(Country_Cluster)
+                selected  <- do.call(c, selected)
+            }
+            selectInput("clus3","", all, selected, multiple = TRUE)
+        }
+    })
 
   #output$test <- renderPrint({
   #  input$cnt3
@@ -84,43 +141,104 @@ shinyServer(function(input, output, session) {
         filter(Country_Cluster %in% input$clus3) %>%
         select(Country_Name)
       selected  <- do.call(c, selected)
-      selectInput("cnt3","Countries", data.all$Country_Name, selected, multiple = TRUE)
+      selectInput("cnt3","", data.all$Country_Name, selected, multiple = TRUE)
     }
-  })
-  
-  output$dim3 <- renderUI({
-    selectInput("dim3","Dimension", paste0("Dimension_",1:7), "Dimension_1")
   })
 
-  output$fac3 <- renderUI({
-    selectInput("fac3","Factor", paste0("Factor_",1:10), "Factor_1")
-  })
-  
-  output$size3 <- renderUI({
-    facdim <- c(paste0("Factor_",1:10), paste0("Dimension_",1:7))
-    selectInput("size3","Size", c("(none)", facdim), "Factor_2")
-  })
-  
-  output$dimxfac <- renderPlot({
-    if(input$cntorclus3 == "Clusters") {
-      data <- data.all %>%
-        filter(Country_Cluster %in% input$clus3)
-    } else {
-      data <- data.all %>%
-        filter(Country_Name %in% input$cnt3)
-    }
+    output$hline13 <- renderText({
+        HTML("<hr>")
+    })
+
+    output$dimsel3 <- renderUI({
+        sel3 <<- c("Importance (5C Dim)", "Achievement (5C Dim)", "Gap (5C Dim)")
+        radioButtons("dimsel3", "x-Axis", sel3, selected = sel3[1])
+    })
     
-    if(input$size3 != "(none)") {
-      p <- ggplot(data, aes_string(input$dim3, input$fac3, size=input$size3, color="Country_Cluster"))
-      p <- p + geom_point() 
-    }else{
-      p <- ggplot(data, aes_string(input$dim3, input$fac3, color="Country_Cluster"))
-      p <- p + geom_point(size=3)
-    }
-    p <- p + theme_bw() 
-    p <- p + theme(text = element_text(size=16), axis.text = element_text(size=16))
-    p
-  })
+    output$dim13 <- renderUI({
+        if(is.null(input$dimsel3)) return(NULL)
+        if(input$dimsel3 == sel3[1]) {
+            selectInput("dim13", "", paste0("Importance_",1:7), "Importance_1")
+        }
+    })
+    output$dim23 <- renderUI({
+        if(is.null(input$dimsel3)) return(NULL)
+        if(input$dimsel3 == sel3[2]) {
+            selectInput("dim23", "", paste0("Achievement_",1:7), "Achievement_1")
+        }
+    })
+    output$dim33 <- renderUI({
+        if(is.null(input$dimsel3)) return(NULL)
+        if(input$dimsel3 == sel3[3]) {
+            selectInput("dim33", "", paste0("Gap_",1:7), "Gap_1")
+        }
+    })
+
+    output$hline23 <- renderText({
+        HTML("<hr>")
+    })
+
+    output$facsel3 <- renderUI({
+        fsel3 <<- c("Individual Factors", "Country Factors")
+        radioButtons("facsel3", "y-Axis", fsel3, selected = fsel3[1])
+    })
+
+    output$fac13 <- renderUI({
+        if(is.null(input$facsel3)) return(NULL)
+        if(input$facsel3 == fsel3[1]) {
+            selectInput("fac13", "", paste0("Individual_Factor_",1:12), "Individual_Factor_1")
+        }
+    })
+    output$fac23 <- renderUI({
+        if(is.null(input$facsel3)) return(NULL)
+        if(input$facsel3 == fsel3[2]) {
+            selectInput("fac23", "", cfacs, cfacs[1])
+        }
+    })
+
+    output$hline33 <- renderText({
+        HTML("<hr>")
+    })
+
+    output$size3 <- renderUI({
+        selectInput("size3","Size", c("(none)", cfacs), "(none)")
+    })
+  
+    output$dimxfac <- renderPlot({
+        if(input$cntorclus3 == "Clusters") {
+            data <- data.all %>%
+                filter(Country_Cluster %in% input$clus3)
+        } else {
+            data <- data.all %>%
+                filter(Country_Name %in% input$cnt3)
+        }
+
+        if(is.null(input$dimsel3)) return(NULL)    
+        xdim <<- switch(input$dimsel3,
+                         "Importance (5C Dim)" = input$dim13,
+                         "Achievement (5C Dim)" = input$dim23,
+                         "Gap (5C Dim)" = input$dim33
+                      )
+        if(is.null(xdim)) return(NULL)
+
+        if(is.null(input$facsel3)) return(NULL)    
+        yfac <<- switch(input$facsel3,
+                      "Individual Factors" =  input$fac13,
+                      "Country Factors" = input$fac23
+                      )
+        if(is.null(yfac)) return(NULL)
+
+        
+        if(input$size3 != "(none)") {
+            p <- ggplot(data, aes_string(xdim, yfac, size=input$size3, color="Country_Cluster"))
+            p <- p + geom_point() 
+        }else{
+            p <- ggplot(data, aes_string(xdim, yfac, color="Country_Cluster"))
+            p <- p + geom_point(size=3)
+        }
+        p <- p + theme_bw() 
+        p <- p + theme(text = element_text(size=16), axis.text = element_text(size=16))
+        p
+    })
   
 #  output$country99 <- renderUI({
 #    selectInput("country99","Countries", data.all$Country_Name, "Switzerland", multiple = TRUE)
@@ -175,8 +293,8 @@ shinyServer(function(input, output, session) {
     ## actual tooltip created as wellPanel     
     size <- ifelse(input$size3=="(none)", "(none)", round(point[,input$size3],2))
     wellPanel(style = style, HTML(paste0("<b>",point$Country_Name,"</b>", "<br>",
-                                         "Dim: ", round(point[,input$dim3],2), "<br>",
-                                         "Fac: ", round(point[,input$fac3],2), "<br>",
+                                         "Dim: ", round(point[, xdim],2), "<br>",
+                                         "Fac: ", round(point[, yfac],2), "<br>",
                                          "Size: ", size))
     )   
   })
