@@ -57,6 +57,9 @@ shinyUI(fluidPage(
         uiOutput("fac23"),
         uiOutput("hline33"),
         uiOutput("size3")
+      ),
+      conditionalPanel(condition="input.conditionedPanels==4",
+        uiOutput("help")
       )
 #      conditionalPanel(condition="input.conditionedPanels==99",
 #         uiOutput("country99"),
@@ -74,6 +77,8 @@ shinyUI(fluidPage(
                                        delay = 100, delayType = "debounce")),       
           uiOutput("hover_info")     
           ), icon=icon("times"), value=3),
+        tabPanel("Help", htmlOutput("helptext"),
+                 icon=icon("info"), value=4),
         #tabPanel("test",  htmlOutput("test"),  value=99),
         #tabPanel("test2",  plotlyOutput("testplot2"),  value=98),
         id = "conditionedPanels"

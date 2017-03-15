@@ -239,7 +239,14 @@ shinyServer(function(input, output, session) {
         p <- p + theme(text = element_text(size=16), axis.text = element_text(size=16))
         p
     })
-  
+
+    output$help <- renderText({
+        HTML("<b>Help and Instructions</b>")
+    })
+    output$helptext <- renderText({
+        HTML(paste0("<br><mark>", icon("code"), "Site is under construction.",  icon("code"), "</mark>"))
+    })
+    
 #  output$country99 <- renderUI({
 #    selectInput("country99","Countries", data.all$Country_Name, "Switzerland", multiple = TRUE)
 #  })
