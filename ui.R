@@ -43,7 +43,6 @@ shinyUI(fluidPage(
       ),
       conditionalPanel(condition="input.conditionedPanels==3",
         uiOutput("cntorclus3"),
-        #uiOutput("cntclus3"),
         uiOutput("clus3"),
         uiOutput("cnt3"),
         uiOutput("hline13"),
