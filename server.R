@@ -149,60 +149,121 @@ shinyServer(function(input, output, session) {
         HTML("<hr>")
     })
 
-    output$dimsel3 <- renderUI({
-        sel3 <<- c("Importance (5C Dim)", "Achievement (5C Dim)", "Gap (5C Dim)")
-        radioButtons("dimsel3", "x-Axis", sel3, selected = sel3[1])
+    output$xsel3 <- renderUI({
+        radioButtons("xsel3", "x-Axis", sel1, selected = sel1[1])
     })
     
-    output$dim13 <- renderUI({
-        if(is.null(input$dimsel3)) return(NULL)
-        if(input$dimsel3 == sel3[1]) {
-            selectInput("dim13", "", paste0("Importance_",1:7), "Importance_1")
+    output$dimx13 <- renderUI({
+        if(is.null(input$xsel3)) return(NULL)
+        if(input$xsel3 == sel1[1]) {
+            selectInput("dimx13", "", paste0("Importance_",1:7), "Importance_1")
         }
     })
-    output$dim23 <- renderUI({
-        if(is.null(input$dimsel3)) return(NULL)
-        if(input$dimsel3 == sel3[2]) {
-            selectInput("dim23", "", paste0("Achievement_",1:7), "Achievement_1")
+    output$dimx23 <- renderUI({
+        if(is.null(input$xsel3)) return(NULL)
+        if(input$xsel3 == sel1[2]) {
+            selectInput("dimx23", "", paste0("Achievement_",1:7), "Achievement_1")
         }
     })
-    output$dim33 <- renderUI({
-        if(is.null(input$dimsel3)) return(NULL)
-        if(input$dimsel3 == sel3[3]) {
-            selectInput("dim33", "", paste0("Gap_",1:7), "Gap_1")
+    output$dimx33 <- renderUI({
+        if(is.null(input$xsel3)) return(NULL)
+        if(input$xsel3 == sel1[3]) {
+            selectInput("dimx33", "", paste0("Gap_",1:7), "Gap_1")
+        }
+    })
+    output$facx13 <- renderUI({
+        if(is.null(input$xsel3)) return(NULL)
+        if(input$xsel3 == sel1[4]) {
+            selectInput("facx13", "", paste0("Individual_Factor_",1:12), "Individual_Factor_1")
+        }
+    })
+    output$facx23 <- renderUI({
+        if(is.null(input$xsel3)) return(NULL)
+        if(input$xsel3 == sel1[5]) {
+            selectInput("facx23", "", cfacs, cfacs[1])
         }
     })
 
+    output$x3 <- renderUI({
+        if(is.null(input$xsel3)) return(NULL)
+        idx <- which(input$xsel3 == sel1) 
+        var <- var.y[idx]
+        selectInput("x3", "", varnames[[idx]], varnames[[idx]][1])
+    })
+
+    
     output$hline23 <- renderText({
         HTML("<hr>")
     })
 
-    output$facsel3 <- renderUI({
-        fsel3 <<- c("Individual Factors", "Country Factors")
-        radioButtons("facsel3", "y-Axis", fsel3, selected = fsel3[1])
+    output$ysel3 <- renderUI({
+        radioButtons("ysel3", "y-Axis", sel1, selected = sel1[1])
     })
 
-    output$fac13 <- renderUI({
-        if(is.null(input$facsel3)) return(NULL)
-        if(input$facsel3 == fsel3[1]) {
-            selectInput("fac13", "", paste0("Individual_Factor_",1:12), "Individual_Factor_1")
-        }
+    var.y <- c("dimy13", "dimy23", "dimy33", "facy13", "facy23")
+
+    varnames <<- list(paste0("Importance_",1:7),
+                     paste0("Achievement_",1:7),
+                     paste0("Gap_",1:7),
+                     paste0("Individual_Factor_",1:12),
+                     cfacs)
+
+    #outy <- reactive({
+    #    if(is.null(input$ysel3)) return(list(idx=1, var="dimy13"))
+    #    idx <- which(input$ysel3 == sel1) 
+    #    list(idx=idx, var=var.y[idx])
+    #})
+
+    output$y3 <- renderUI({
+        #if(is.null(input$ysel3)) return(NULL)
+        #for(j in 1:2) {
+        if(is.null(input$ysel3)) return(NULL)
+        idx <- which(input$ysel3 == sel1) 
+        #list(idx=idx, var=var.y[idx])                                #if(input$ysel3 == sel1[1]) {
+        var <- var.y[idx]
+        #var <- outy()$var
+        #idx <- outy()$idx
+        selectInput("y3", "", varnames[[idx]], varnames[[idx]][1])
+            #}
+        #}
     })
-    output$fac23 <- renderUI({
-        if(is.null(input$facsel3)) return(NULL)
-        if(input$facsel3 == fsel3[2]) {
-            selectInput("fac23", "", cfacs, cfacs[1])
-        }
-    })
+    #}
+#})
+    #output$fac13 <- renderUI({
+    #    if(is.null(input$facsel3)) return(NULL)
+    #    if(input$facsel3 == fsel3[1]) {
+    #        selectInput("fac13", "", paste0("Individual_Factor_",1:12), "Individual_Factor_1")
+    #    }
+    #})
+    
+    #output$fac23 <- renderUI({
+    #    if(is.null(input$facsel3)) return(NULL)
+    #    if(input$facsel3 == fsel3[2]) {
+    #        selectInput("fac23", "", cfacs, cfacs[1])
+    #    }
+    #})
 
     output$hline33 <- renderText({
         HTML("<hr>")
     })
 
-    output$size3 <- renderUI({
-        selectInput("size3","Size", c("(none)", cfacs), "(none)")
+    #output$size3 <- renderUI({
+    #    selectInput("size3","Size", c("(none)", cfacs), "(none)")
+    #})
+
+    output$zsel3 <- renderUI({
+        radioButtons("zsel3", "Size", c("(none)", sel1), selected = "(none)")
     })
-  
+
+    output$z3 <- renderUI({
+        if(is.null(input$zsel3)) return(NULL)
+        if(input$zsel3 == "(none)") return(NULL)
+        idx <- which(input$zsel3 == sel1) 
+        var <- var.y[idx]
+        selectInput("z3", "", varnames[[idx]], varnames[[idx]][1])
+    })
+
+    
     output$dimxfac <- renderPlot({
         if(input$cntorclus3 == "Clusters") {
             data <- data.all %>%
@@ -212,27 +273,34 @@ shinyServer(function(input, output, session) {
                 filter(Country_Name %in% input$cnt3)
         }
 
-        if(is.null(input$dimsel3)) return(NULL)    
-        xdim <<- switch(input$dimsel3,
-                         "Importance (5C Dim)" = input$dim13,
-                         "Achievement (5C Dim)" = input$dim23,
-                         "Gap (5C Dim)" = input$dim33
-                      )
-        if(is.null(xdim)) return(NULL)
+        #if(is.null(input$dimsel3)) return(NULL)    
+        #xdim <<- switch(input$dimsel3,
+        #                 "Importance (5C Dim)" = input$dim13,
+        #                 "Achievement (5C Dim)" = input$dim23,
+        #                 "Gap (5C Dim)" = input$dim33
+        #              )
+        #if(is.null(xdim)) return(NULL)
 
-        if(is.null(input$facsel3)) return(NULL)    
-        yfac <<- switch(input$facsel3,
-                      "Individual Factors" =  input$fac13,
-                      "Country Factors" = input$fac23
-                      )
-        if(is.null(yfac)) return(NULL)
+        #if(is.null(input$facsel3)) return(NULL)    
+        #yfac <<- switch(input$facsel3,
+        #              "Individual Factors" =  input$fac13,
+        #              "Country Factors" = input$fac23
+        #              )
 
+        x <- input$x3
+        if(is.null(x)) return(NULL)
+
+        y <- input$y3
+        if(is.null(y)) return(NULL)
+
+        z <- input$z3
+        #if(is.null(z)) return(NULL)
         
-        if(input$size3 != "(none)") {
-            p <- ggplot(data, aes_string(xdim, yfac, size=input$size3, color="Country_Cluster"))
+        if(input$zsel3 != "(none)") {
+            p <- ggplot(data, aes_string(x, y, size=z, color="Country_Cluster"))
             p <- p + geom_point() 
         }else{
-            p <- ggplot(data, aes_string(xdim, yfac, color="Country_Cluster"))
+            p <- ggplot(data, aes_string(x, y, color="Country_Cluster"))
             p <- p + geom_point(size=3)
         }
         p <- p + theme_bw() 

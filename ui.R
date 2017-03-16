@@ -47,16 +47,14 @@ shinyUI(fluidPage(
         uiOutput("clus3"),
         uiOutput("cnt3"),
         uiOutput("hline13"),
-        uiOutput("dimsel3"),
-        uiOutput("dim13"),
-        uiOutput("dim23"),
-        uiOutput("dim33"),
+        uiOutput("xsel3"),
+        uiOutput("x3"),
         uiOutput("hline23"),
-        uiOutput("facsel3"),
-        uiOutput("fac13"),
-        uiOutput("fac23"),
+        uiOutput("ysel3"),
+        uiOutput("y3"),
         uiOutput("hline33"),
-        uiOutput("size3")
+        uiOutput("zsel3"),
+        uiOutput("z3")
       ),
       conditionalPanel(condition="input.conditionedPanels==4",
         uiOutput("help")
