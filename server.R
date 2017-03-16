@@ -366,10 +366,10 @@ shinyServer(function(input, output, session) {
     ## z-index is set so we are sure are tooltip will be on top     
     style <- paste0("position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85);",                     "left:", left_px + 2, "px; top:", top_px + 2, "px;")         
     ## actual tooltip created as wellPanel     
-    size <- ifelse(input$size3=="(none)", "(none)", round(point[,input$size3],2))
+    size <- ifelse(input$zsel3=="(none)", "(none)", round(point[,input$z3],2))
     wellPanel(style = style, HTML(paste0("<b>",point$Country_Name,"</b>", "<br>",
-                                         "Dim: ", round(point[, xdim],2), "<br>",
-                                         "Fac: ", round(point[, yfac],2), "<br>",
+                                         "x: ", round(point[, input$x3],2), "<br>",
+                                         "y: ", round(point[, input$y3],2), "<br>",
                                          "Size: ", size))
     )   
   })
