@@ -23,7 +23,9 @@ shinyUI(fluidPage(
         tags$style(type='text/css', ".multi  { border-color: #aaa; }"),
         tags$style(type='text/css', ".single { border-color: #aaa; }"),
         tags$style(type='text/css', "h2 { color:red; font-size:0px; background-size: 100px auto;
-                   background-image: url(5clogo.jpg); background-repeat: no-repeat;margin: auto; height:75px;}")
+                   background-image: url(5clogo.jpg); background-repeat: no-repeat;margin: auto; height:75px;}"),
+        tags$style(type='text/css', "#dimplot {height: 500px !important;}"),
+        tags$style(type='text/css', "#dimxfac {height: 500px !important;}")
       ),
       conditionalPanel(condition="input.conditionedPanels==1",
         selectInput("region", "Region", regions),
@@ -65,15 +67,16 @@ shinyUI(fluidPage(
     ),
     mainPanel(
       tabsetPanel(
-        tabPanel("Map", htmlOutput("gvismap"), icon=icon("globe"), value=1),
-        tabPanel("Dimensions",  plotOutput("dimplot"), icon=icon("bar-chart"), value=2),
+        tabPanel("Map", htmlOutput("gvismap"), downloadButton('downloadMap', 'Download Map'), HTML("<br><br>"), icon=icon("globe"), value=1),
+        tabPanel("Dimensions",  plotOutput("dimplot"),
+                 HTML("<br>"), downloadButton('downloadDim', 'Download Plot'), icon=icon("bar-chart"), value=2),
         tabPanel("Dim x Factor", div(       
           style = "position:relative",       
           plotOutput("dimxfac",                  
                      hover = hoverOpts("plot_hover", 
                                        delay = 100, delayType = "debounce")),       
           uiOutput("hover_info")     
-          ), icon=icon("times"), value=3),
+          ), HTML("<br>"), downloadButton('downloadDimFac', 'Download Plot'), icon=icon("times"), value=3),
         tabPanel("Help", htmlOutput("helptext"),
                  icon=icon("info"), value=4),
         #tabPanel("test",  htmlOutput("test"),  value=99),

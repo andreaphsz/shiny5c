@@ -25,7 +25,7 @@ shinyServer(function(input, output, session) {
         
         if(is.null(facdim)) return(NULL)
         
-        gvisGeoChart(data.all, locationvar="Country_Name", 
+        gmap <- gvisGeoChart(data.all, locationvar="Country_Name", 
                      colorvar = facdim,
                      options = list(projection = "mercator",
                                     width = 800, height = 580,
@@ -33,6 +33,20 @@ shinyServer(function(input, output, session) {
                                     colorAxis = "{colors:['#ABABAB','#9FC7F0']}",
                                     legend = "{numberFormat:'#.##'}")
                      )
+        
+        output$downloadMap <- downloadHandler(
+            filename = function() {
+                paste('plot_5c_', format(Sys.time(), "%Y%m%d_%H%M%S"), '.html', sep='')
+            },
+            content = function(con) {
+                #png(con, height = 2*500, width = 2*930, res = 144)
+                print(gmap, tag=NULL, file=con)
+                #dev.off()
+            }
+        )
+
+        return(gmap)
+
     })
 
     output$facdimsel1 <- renderUI({    
@@ -103,9 +117,20 @@ shinyServer(function(input, output, session) {
         }
         
         p <- p + geom_col(position="dodge") + theme_bw() + scale_fill_hue(l=50)
-        p + theme(text = element_text(size=16), axis.text = element_text(size=16), axis.title=element_blank())
-    
-  })
+        p <- p + theme(text = element_text(size=16), axis.text = element_text(size=16), axis.title=element_blank())
+        print(p)
+
+        output$downloadDim <- downloadHandler(
+            filename = function() {
+                paste('plot_5c_', format(Sys.time(), "%Y%m%d_%H%M%S"), '.png', sep='')
+            },
+            content = function(con) {
+                png(con, height = 2*500, width = 2*930, res = 144)
+                print(p)
+                dev.off()
+            }
+        )
+    }, height = 500, width = 930)
 
     ## Dim x Fac Tab ------------------------------------------
     output$cntorclus3  <- renderUI({
@@ -224,8 +249,19 @@ shinyServer(function(input, output, session) {
         }
         p <- p + theme_bw() 
         p <- p + theme(text = element_text(size=16), axis.text = element_text(size=16))
-        p
-    })
+        print(p)
+
+        output$downloadDimFac <- downloadHandler(
+            filename = function() {
+                paste('plot_5c_', format(Sys.time(), "%Y%m%d_%H%M%S"), '.png', sep='')
+            },
+            content = function(con) {
+                png(con,  width = 2*640,  height = 2*500, res = 144)
+                print(p)
+                dev.off()
+            }
+        )
+    }, width = 640, height = 500)
 
     output$help <- renderText({
         HTML("<b>Help and Instructions</b>")
