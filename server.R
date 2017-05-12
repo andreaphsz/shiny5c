@@ -249,7 +249,7 @@ shinyServer(function(input, output, session) {
         }
         p <- p + theme_bw() 
         p <- p + theme(text = element_text(size=16), axis.text = element_text(size=16))
-        print(p)
+        
 
         output$downloadDimFac <- downloadHandler(
             filename = function() {
@@ -261,6 +261,8 @@ shinyServer(function(input, output, session) {
                 dev.off()
             }
         )
+        ## see http://stackoverflow.com/questions/35570553/nearpoints-not-able-to-automatically-infer-xvar-from-shiny-coordinfo#35571730
+        return(p)
     }, width = 640, height = 500)
 
     output$help <- renderText({
