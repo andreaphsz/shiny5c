@@ -1,7 +1,7 @@
 library(shiny)
 
 regions <- c("World" = "world",
-             "Africa"= "002", 
+             "Africa"= "002",
              "Europe"="150",
              "Americas"="019",
              "Asia"="142",
@@ -12,7 +12,7 @@ factors <- paste0("Factor_", 1:10)
 dimensions <- paste0("Dimension_", 1:7)
 
 projections <- c("mercator", "albers", "lambert","kavrayskiy-vii")
-  
+
 shinyUI(fluidPage(
   titlePanel("5C Visualisations"),
   sidebarLayout(
@@ -38,7 +38,7 @@ shinyUI(fluidPage(
         uiOutput("fac21")
       ),
       conditionalPanel(condition="input.conditionedPanels==2",
-        uiOutput("country2"), 
+        uiOutput("country2"),
         uiOutput("dim12"),
         uiOutput("dim22"),
         uiOutput("dim32"),
@@ -67,24 +67,31 @@ shinyUI(fluidPage(
 #      )
     ),
     mainPanel(
-      tabsetPanel(
-        tabPanel("Map", htmlOutput("gvismap"), downloadButton('downloadMap', 'Download Map'), HTML("<br><br>"), icon=icon("globe"), value=1),
-        tabPanel("Dimensions",  plotOutput("dimplot"),
-                 HTML("<br>"), downloadButton('downloadDim', 'Download Plot'), icon=icon("bar-chart"), value=2),
-        tabPanel("Dim x Factor", div(       
-          style = "position:relative",       
-          plotOutput("dimxfac",                  
-                     hover = hoverOpts("plot_hover", 
-                                       delay = 100, delayType = "debounce")),       
-          uiOutput("hover_info")     
-          ), HTML("<br>"), downloadButton('downloadDimFac', 'Download Plot'), icon=icon("times"), value=3),
+        tabsetPanel(
+            tabPanel("Map", htmlOutput("gvismap"), downloadButton('downloadMap', 'Download Map'),
+                     HTML("<br><br>"), icon=icon("globe"), value=1),
+
+            tabPanel("Dimensions",  plotOutput("dimplot"),
+                     HTML("<br>"), downloadButton('downloadDim', 'Download Plot'),
+                     icon=icon("bar-chart"), value=2),
+
+            tabPanel("Dim x Factor", div(
+                                         style = "position:relative",
+                                         plotOutput("dimxfac",
+                                                    hover = hoverOpts("plot_hover",
+                                                                      delay = 100,
+                                                                      delayType = "debounce")),
+                                         uiOutput("hover_info")
+                                     ),
+                     HTML("<br>"), downloadButton('downloadDimFac', 'Download Plot'),
+                     icon=icon("times"), value=3),
+
         tabPanel("Help", htmlOutput("helptext"),
                  icon=icon("info"), value=4),
         #tabPanel("test",  htmlOutput("test"),  value=99),
         #tabPanel("test2",  plotlyOutput("testplot2"),  value=98),
         id = "conditionedPanels"
       )
-    )
-  )
-)
-)
+    ) #mainPanel
+  ) #sidebarLayout
+)) #shinyUI/fluidPage
