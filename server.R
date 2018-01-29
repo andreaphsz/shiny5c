@@ -270,13 +270,13 @@ shinyServer(function(input, output, session) {
         HTML('
     <ul class="nav nav-pills nav-stacked" data-tabsetid="2586">
       <li class="active">
-        <a href="#tab-2586-1" data-toggle="tab" data-value="map">Map</a>
+        <a href="#tab-2586-1" data-toggle="tab" data-value="map">Map <i class="fa fa-globe" aria-hidden="true"></i></a>
       </li>
       <li>
-        <a href="#tab-2586-2" data-toggle="tab" data-value="success">Success Factors</a>
+        <a href="#tab-2586-2" data-toggle="tab" data-value="success">Success Factors <i class="fa fa-bar-chart" aria-hidden="true"></i></a>
       </li>
       <li>
-        <a href="#tab-2586-3" data-toggle="tab" data-value="multi">Multidimensional Views</a>
+        <a href="#tab-2586-3" data-toggle="tab" data-value="multi">Multidimensional Views <i class="fa fa-line-chart" aria-hidden="true"></i></a>
       </li>
     </ul>
  ')
@@ -286,7 +286,7 @@ shinyServer(function(input, output, session) {
         HTML('
     <div class="tab-content" data-tabsetid="2586">
       <div class="tab-pane active" data-value="map" id="tab-2586-1">
-        <h4>The "Map" tab provides a geographical perspective on the data, based on an interactive map.</h4>
+        <h4>The Map <i class="fa fa-globe" aria-hidden="true"></i> tab provides a geographical perspective on the data, based on an interactive map.</h4>
         Features:
         <ul>
           <li><b>"Region":</b><br>
@@ -307,7 +307,7 @@ shinyServer(function(input, output, session) {
         </ul>
       </div>
       <div class="tab-pane" data-value="success" id="tab-2586-2">
-        <h4>The  "Success Factors" tab allows the comparison of a broad range of career success variables between one or multiple countries.</h4>
+        <h4>The Success Factors <i class="fa fa-bar-chart" aria-hidden="true"></i> tab allows the comparison of a broad range of career success variables between one or multiple countries.</h4>
         Features:
         <ul>
           <li><b>"Countries":</b><br>

@@ -71,11 +71,11 @@ shinyUI(fluidPage(
             tabPanel("Map", htmlOutput("gvismap"), downloadButton('downloadMap', 'Download Map'),
                      HTML("<br><br>"), icon=icon("globe"), value=1),
 
-            tabPanel("Dimensions",  plotOutput("dimplot"),
+            tabPanel("Success Factors",  plotOutput("dimplot"),
                      HTML("<br>"), downloadButton('downloadDim', 'Download Plot'),
                      icon=icon("bar-chart"), value=2),
 
-            tabPanel("Dim x Factor", div(
+            tabPanel("Multidimensional Views", div(
                                          style = "position:relative",
                                          plotOutput("dimxfac",
                                                     hover = hoverOpts("plot_hover",
@@ -84,7 +84,7 @@ shinyUI(fluidPage(
                                          uiOutput("hover_info")
                                      ),
                      HTML("<br>"), downloadButton('downloadDimFac', 'Download Plot'),
-                     icon=icon("times"), value=3),
+                     icon=icon("line-chart"), value=3),
 
         tabPanel("Help", htmlOutput("helptext"),
                  icon=icon("info"), value=4),
