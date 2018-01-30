@@ -60,6 +60,9 @@ shinyUI(fluidPage(
       ),
       conditionalPanel(condition="input.conditionedPanels==4",
         uiOutput("help")
+      ),
+      conditionalPanel(condition="input.conditionedPanels==5",
+        uiOutput("about")
       )
 #      conditionalPanel(condition="input.conditionedPanels==99",
 #         uiOutput("country99"),
@@ -75,19 +78,23 @@ shinyUI(fluidPage(
                      HTML("<br>"), downloadButton('downloadDim', 'Download Plot'),
                      icon=icon("bar-chart"), value=2),
 
-            tabPanel("Multidimensional Views", div(
-                                         style = "position:relative",
-                                         plotOutput("dimxfac",
-                                                    hover = hoverOpts("plot_hover",
-                                                                      delay = 100,
-                                                                      delayType = "debounce")),
-                                         uiOutput("hover_info")
-                                     ),
+            tabPanel("Multidimensional Views",
+                     div(style = "position:relative",
+                         plotOutput("dimxfac",
+                                    hover = hoverOpts("plot_hover",
+                                                      delay = 100,
+                                                      delayType = "debounce")),
+                         uiOutput("hover_info")
+                         ),
                      HTML("<br>"), downloadButton('downloadDimFac', 'Download Plot'),
                      icon=icon("line-chart"), value=3),
 
-        tabPanel("Help", htmlOutput("helptext"),
-                 icon=icon("info"), value=4),
+            tabPanel("Help", htmlOutput("helptext"),
+                     icon=icon("question"), value=4),
+
+            tabPanel("About", htmlOutput("abouttext"),
+                     icon=icon("info"), value=5),
+
         #tabPanel("test",  htmlOutput("test"),  value=99),
         #tabPanel("test2",  plotlyOutput("testplot2"),  value=98),
         id = "conditionedPanels"

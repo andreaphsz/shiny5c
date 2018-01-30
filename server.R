@@ -7,6 +7,7 @@ library(tidyr)
 #library(RColorBrewer)
 
 source("global.R")
+source("helptxt.R")
 
 shinyServer(function(input, output, session) {
     sel1 <- c("Importance (5C Dim)", "Achievement (5C Dim)", "Gap (5C Dim)", "Individual Factors", "Country Factors")
@@ -268,104 +269,42 @@ shinyServer(function(input, output, session) {
     ## Help Tab ------------------------------------------
     output$help <- renderUI({
         HTML('
-    <ul class="nav nav-pills nav-stacked" data-tabsetid="2586">
+    <ul class="nav nav-pills nav-stacked" data-tabsetid="9999">
+      <li class="navbar-brand">Help <i class="fa fa-question" aria-hidden="true"></i></li>
       <li class="active">
-        <a href="#tab-2586-1" data-toggle="tab" data-value="map">Map <i class="fa fa-globe" aria-hidden="true"></i></a>
+        <a href="#tab-9999-1" data-toggle="tab" data-value="map">Map <i class="fa fa-globe" aria-hidden="true"></i></a>
       </li>
       <li>
-        <a href="#tab-2586-2" data-toggle="tab" data-value="success">Success Factors <i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+        <a href="#tab-9999-2" data-toggle="tab" data-value="success">Success Factors <i class="fa fa-bar-chart" aria-hidden="true"></i></a>
       </li>
       <li>
-        <a href="#tab-2586-3" data-toggle="tab" data-value="multi">Multidimensional Views <i class="fa fa-line-chart" aria-hidden="true"></i></a>
+        <a href="#tab-9999-3" data-toggle="tab" data-value="multi">Multidimensional Views <i class="fa fa-line-chart" aria-hidden="true"></i></a>
       </li>
     </ul>
  ')
     })
 
     output$helptext <- renderUI({
+        HTML(help.html)
+    })
+
+    ## About Tab ------------------------------------------
+    output$about <- renderUI({
         HTML('
-    <div class="tab-content" data-tabsetid="2586">
-      <div class="tab-pane active" data-value="map" id="tab-2586-1">
-        <h4>The tab [Map <i class="fa fa-globe" aria-hidden="true"></i>] provides a geographical perspective on the data, based on an interactive map.</h4>
-        Features:
-        <ul>
-          <li><b>"Region":</b><br>
-             Select the region on the map that you are interested in</li>
-          <li><b>"Dimension/factor":</b><br>
-              Select which factor or dimension you want to look at
-          <ul>
-            <li>Importance: 5C career success dimensions, importance scores</li>
-            <li>Achievement: 5C career success dimensions, achievement scores</li>
-            <li>Gap: 5C career success dimensions, difference between importance and achievement scores</li>
-            <li>Individual factors: Individual-level variables (e.g., age, gender)</li>
-            <li>Country factors: Country-level variables (e.g., GDP, Gini coefficient)</li>
-          </ul>
-          <li>Based on the preselected factor/dimension, choose the specific variable from the dropdown menu below</li>
-          <li>Display country names and selected country scores when moving the mouse over the map</li>
-          <li><b>"Download Map"</b><br>
-             Download the map as an HTML-file</li>
-        </ul>
-      </div>
-      <div class="tab-pane" data-value="success" id="tab-2586-2">
-        <h4>The tab [Success Factors <i class="fa fa-bar-chart" aria-hidden="true"></i>] allows the comparison of a broad range of career success variables between one or multiple countries.</h4>
-        Features:
-        <ul>
-          <li><b>"Countries":</b><br>
-            Select/deselect the country/countries you are interested in.<br>
-            To add a country, click in the “countries” field and select the country from the dropdown menu that appears. To remove a country from the selection, highlight the name in the “country” field and delete it.</li>
-          <li><b>"Importance":</b><br>
-            Select/deselect the 5C career success dimension(s) you are interested in (importance scores).</li>
-          <li><b>"Achievement":</b><br>
-            Select/deselect the 5C career success dimension(s) you are interested in (achievement scores).</li>
-          <li><b>"Gap":</b><br>
-            Select/deselect the 5C career success gaps (i.e., importance vs achievement) dimension(s) you are interested in.</li>
-          <li><b>"x-Axis":</b><br>
-            Choose whether selected countries or selected 5C dimensions should appear on the x-axis.</li>
-          <li><b>"Download Plot":</b><br>
-            Download the selected plot as a png-file.</li>
-        </ul>
-      </div>
-      <div class="tab-pane" data-value="multi" id="tab-2586-3">
-        <h4>The tab [Multidimensional Views <i class="fa fa-line-chart" aria-hidden="true"></i>] allows a multi-dimensional view on preselected multiple variables and countries.</h4>
-Features:
-<ul>
-<li><b>"Clusters/Countries":</b><br>
-Select/deselect whether the focus is on country clusters (e.g., Latin America) or individual countries.<br>
-To remove a country or cluster from the selection, highlight the name in the “clusters/countries” field and delete it. To add a country or cluster, click in the field and select the country or cluster from the dropdown menu that appears.</li>
-<li><b>"x-Axis":</b><br>
-Select which factor or dimension you want to look at on the x-axis:
-<ul>
-<li>Importance: 5C career success dimensions, importance scores</li>
-<li>Achievement: 5C career success dimensions, achievement scores</li>
-<li>Gap: 5C career success dimensions, difference between importance and achievement scores</li>
-<li>Individual factors: Individual-level variables (e.g., age, gender)</li>
-<li>Country factors: Country-level variables (e.g., GDP, Gini coefficient)</li>
-</ul></li>
-<li><b>"y-Axis":</b><br>
-Select which factor or dimension you want to look at on the y-axis:
-<ul>
-<li>Importance: 5C career success dimensions, importance scores</li>
-<li>Achievement: 5C career success dimensions, achievement scores</li>
-<li>Gap: 5C career success dimensions, difference between importance and achievement scores</li>
-<li>Individual factors: Individual-level variables (e.g., age, gender)</li>
-<li>Country factors: Country-level variables (e.g., GDP, Gini coefficient)</li>
-</ul></li>
-<li><b>"Size":</b><br>
-Select which factor or dimension should be used as the third dimension. The selected variable will be displayed using the size of the data points in the matrix:
-<ul>
-<li>None: No third variable will be added, all data points are of equal size</li>
-<li>Importance: 5C career success dimensions, importance scores</li>
-<li>Achievement: 5C career success dimensions, achievement scores</li>
-<li>Gap: 5C career success dimensions, difference between importance and achievement scores</li>
-<li>Individual factors: Individual-level variables (e.g., age, gender)</li>
-<li>Country factors: Country-level variables (e.g., GDP, Gini coefficient)</li>
-</ul></li>
-<li><b>"Download Plot":</b><br>
-Download the selected plot as a png-file.</li>
-</ul>
-      </div>
-    </div>
-')
+    <ul class="nav nav-pills nav-stacked" data-tabsetid="9998">
+      <li class="navbar-brand">About <i class="fa fa-info" aria-hidden="true"></i></li>
+      <li class="active">
+        <a href="#tab-9998-1" data-toggle="tab" data-value="about">About</a>
+      </li>
+      <li>
+        <a href="#tab-9998-2" data-toggle="tab" data-value="contact">Contact</a>
+      </li>
+    </ul>
+ ')
+    })
+
+    output$abouttext <- renderUI({
+        HTML(about.html)
     })
 
 #  output$country99 <- renderUI({
