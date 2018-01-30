@@ -22,11 +22,10 @@ shinyUI(fluidPage(
         tags$style(type='text/css', ".well { background-color: #fafafa; }"),
         tags$style(type='text/css', ".multi  { border-color: #aaa; }"),
         tags$style(type='text/css', ".single { border-color: #aaa; }"),
-        tags$style(type='text/css', "h2 { color:red; font-size:0px; background-size: 100px auto;
-                   background-image: url(5clogo.jpg); background-repeat: no-repeat;margin: auto; height:75px;}"),
         tags$style(type='text/css', "#dimplot {height: 500px !important;}"),
         tags$style(type='text/css', "#dimxfac {height: 500px !important;}"),
-        includeScript("www/ga.js")
+        includeScript("www/ga.js"),
+        includeScript("www/5c.js")
       ),
       conditionalPanel(condition="input.conditionedPanels==1",
         selectInput("region", "Region", regions),
