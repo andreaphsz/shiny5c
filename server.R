@@ -37,12 +37,16 @@ shinyServer(function(input, output, session) {
 
         output$downloadMap <- downloadHandler(
             filename = function() {
-                paste('plot_5c_', format(Sys.time(), "%Y%m%d_%H%M%S"), '.html', sep='')
+                paste('plot_5c_', format(Sys.time(), "%Y%m%d_%H%M%S"), "_",
+                      substr(runif(1), 3, 7), '.html', sep='')
             },
             content = function(con) {
-                #png(con, height = 2*500, width = 2*930, res = 144)
+                caption <- ""
+                footer <- "<span><a href=\"https://github.com/mages/googleVis\">googleVis</a>  &#8226; <a href=\"https://developers.google.com/terms/\">Google Terms of Use</a> &#8226; <a href=\"https://google-developers.appspot.com/chart/interactive/docs/gallery/motionchart\">Documentation and Data Policy</a><br> &#169; by 5C <a href=\"https://5c.careers/\">www.5c.careers</a></span></div></body></html>"
+                gmap$html$caption <- caption
+                gmap$html$footer <- footer
+                gmap$html$caption <- ""
                 print(gmap, tag=NULL, file=con)
-                #dev.off()
             }
         )
 
@@ -123,10 +127,14 @@ shinyServer(function(input, output, session) {
 
         output$downloadDim <- downloadHandler(
             filename = function() {
-                paste('plot_5c_', format(Sys.time(), "%Y%m%d_%H%M%S"), '.png', sep='')
+                paste('plot_5c_', format(Sys.time(), "%Y%m%d_%H%M%S"), "_",
+                      substr(runif(1), 3, 7), '.png', sep='')
             },
             content = function(con) {
                 png(con, height = 2*500, width = 2*930, res = 144)
+                lab <- paste0(sprintf('\u00A9'), " by 5C www.5c.careers")
+                p <- p + annotate("text", x = Inf, y = 0, hjust=1.1, vjust=1.8, label = lab,
+                                  color="grey50")
                 print(p)
                 dev.off()
             }
@@ -254,10 +262,14 @@ shinyServer(function(input, output, session) {
 
         output$downloadDimFac <- downloadHandler(
             filename = function() {
-                paste('plot_5c_', format(Sys.time(), "%Y%m%d_%H%M%S"), '.png', sep='')
+                paste('plot_5c_', format(Sys.time(), "%Y%m%d_%H%M%S"), "_",
+                      substr(runif(1), 3, 7), '.png', sep='')
             },
             content = function(con) {
                 png(con,  width = 2*640,  height = 2*500, res = 144)
+                lab <- paste0(sprintf('\u00A9'), " by 5C www.5c.careers")
+                p <- p + annotate("text", x = Inf, y = 0, hjust=1.1, vjust=1.8, label = lab,
+                                  color="grey50")
                 print(p)
                 dev.off()
             }
