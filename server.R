@@ -26,13 +26,16 @@ shinyServer(function(input, output, session) {
 
         if(is.null(facdim)) return(NULL)
 
+        colAx <- ifelse(input$colorsel1 == "default",
+                        "{colors:['#fff6e6','#cc8500']}",  "{colors:['#ABABAB','#9FC7F0']}")
+
         gmap <- gvisGeoChart(data.all, locationvar="Country_Name",
                      colorvar = facdim,
                      options = list(projection = "mercator",
                                     width = 800, height = 580,
                                     region = input$region,
-                                    colorAxis = "{colors:['#ABABAB','#9FC7F0']}",
-                                    legend = "{numberFormat:'#.##'}")
+                                    legend = "{numberFormat:'#.##'}",
+                                    colorAxis = colAx)
                      )
 
         output$downloadMap <- downloadHandler(
@@ -89,6 +92,13 @@ shinyServer(function(input, output, session) {
             selectInput("fac21", "", cfacs, cfacs[1])
         }
     })
+    output$hline11 <- renderText({
+        HTML("<hr>")
+    })
+    output$colorsel <- renderUI({
+        radioButtons("colorsel1", "Colors", c("default","colorblind-friendly"), selected = "default")
+    })
+
     ## Dimensions Tab ------------------------------------------
     output$country2 <- renderUI({
         selectInput("country2","Countries", data.all$Country_Name, "Switzerland", multiple = TRUE)

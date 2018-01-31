@@ -34,7 +34,9 @@ shinyUI(fluidPage(
         uiOutput("dim21"),
         uiOutput("dim31"),
         uiOutput("fac11"),
-        uiOutput("fac21")
+        uiOutput("fac21"),
+        uiOutput("hline11"),
+        uiOutput("colorsel")
       ),
       conditionalPanel(condition="input.conditionedPanels==2",
         uiOutput("country2"),
