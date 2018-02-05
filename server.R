@@ -3,6 +3,7 @@ library(googleVis)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+library(viridis)
 #library(plotly)
 #library(RColorBrewer)
 
@@ -26,8 +27,9 @@ shinyServer(function(input, output, session) {
 
         if(is.null(facdim)) return(NULL)
 
+        col1 <- paste0("{colors:['", paste(gsub("FF","",rev(viridis(500))), collapse="','"), "']}")
         colAx <- ifelse(input$colorsel1 == "default",
-                        "{colors:['#fff6e6','#cc8500']}",  "{colors:['#ABABAB','#9FC7F0']}")
+                        col1,  "{colors:['#ABABAB','#9FC7F0']}")
 
         gmap <- gvisGeoChart(data.all, locationvar="Country_Name",
                      colorvar = facdim,
