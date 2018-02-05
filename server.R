@@ -129,12 +129,16 @@ shinyServer(function(input, output, session) {
 
         if(input$xaxis=="Dimension") {
             p <- ggplot(data, aes(Dimension, Value, fill=Country_Name))
+            n.col <- length(unique(data$Country_Name))
         } else {
             p <- ggplot(data, aes(Country_Name, Value, fill=Dimension))
+            n.col <- length(unique(data$Dimension))
         }
 
-        p <- p + geom_col(position="dodge") + theme_bw() + scale_fill_hue(l=50)
-        p <- p + theme(text = element_text(size=16), axis.text = element_text(size=16), axis.title=element_blank())
+        p <- p + geom_col(position="dodge") + theme_bw() #+ scale_fill_hue(l=50)
+        p <- p + theme(text = element_text(size=16), axis.text = element_text(size=16),
+                       axis.title=element_blank())
+        p <- p + scale_fill_manual(values=viridis(n.col))
         print(p)
 
         output$downloadDim <- downloadHandler(
@@ -268,7 +272,7 @@ shinyServer(function(input, output, session) {
             p <- ggplot(data, aes_string(x, y, color="Country_Cluster"))
             p <- p + geom_point(size=3)
         }
-        p <- p + theme_bw()
+        p <- p + scale_color_viridis(discrete=TRUE) + theme_bw()
         p <- p + theme(text = element_text(size=16), axis.text = element_text(size=16))
 
 
