@@ -1,3 +1,4 @@
 *.xlsx
 .Rhistory
 .DS_Store
+*.sav
