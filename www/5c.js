@@ -6,7 +6,7 @@ $( document ).ready(function() {
 	'<a href="https://5c.careers/" target="_blank">' +
 	'<img src="5clogo.jpg" height="75" align="left"></a></div>'
 
-    var phszlogo = '<a href="https://www.phsz.ch/" target="_blank">' +
+    var phszlogo = '<a href="https://www.phsz.ch/en/" target="_blank">' +
 	'<img  src="phsz.jpg" height="30" align="right" style="margin-top:10px;margin-right:30px"></a></div>'
 
     var wulogo = '<div style="display: table-cell;position:relative;float:left;width:66\%">' +
