@@ -108,7 +108,7 @@ about.html <- '
 <ul>
 <li>Andrea Cantieni, Schwyz University of Teacher Education, Goldau, Switzerland (<a href="https://www.phsz.ch/en/" target="_blank">www.phsz.ch</a>)</li>
 <li>Martin Gubler, Schwyz University of Teacher Education, Goldau, Switzerland (<a href="https://www.phsz.ch/en/" target="_blank">www.phsz.ch</a>)</li>
-<li>Rick Cotton, University of Victoria, Victoria, Canada (<a href="https://www.uvic.ca/" target="_blank">www.uvic.ca/</a>)</li>
+<li>Rick Cotton, University of Victoria, Victoria, Canada (<a href="https://www.uvic.ca/" target="_blank">www.uvic.ca</a>)</li>
 <li>Dominik Zellhofer, WU Vienna, Vienna, Austria (<a href="https://www.wu.ac.at/" target="_blank">www.wu.ac.at</a>)</li>
 </ul></p>
 </div>
