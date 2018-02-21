@@ -322,10 +322,13 @@ shinyServer(function(input, output, session) {
     <ul class="nav nav-pills nav-stacked" data-tabsetid="9998">
       <li class="navbar-brand">About <i class="fa fa-info" aria-hidden="true"></i></li>
       <li class="active">
-        <a href="#tab-9998-1" data-toggle="tab" data-value="about">About</a>
+        <a href="#tab-9998-1" data-toggle="tab" data-value="aboutus">About us</a>
       </li>
       <li>
-        <a href="#tab-9998-2" data-toggle="tab" data-value="contact">Contact</a>
+        <a href="#tab-9998-2" data-toggle="tab" data-value="techdet">Technical details</a>
+      </li>
+      <li>
+        <a href="#tab-9998-3" data-toggle="tab" data-value="datasum">Data summary</a>
       </li>
     </ul>
  ')
