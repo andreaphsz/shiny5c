@@ -3,4 +3,5 @@
 .DS_Store
 *.sav
 *.png
+.RData
 

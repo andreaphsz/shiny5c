@@ -12,12 +12,14 @@ Features:
   <ul>
     <li>Importance: 5C career success dimensions, importance scores</li>
     <li>Achievement: 5C career success dimensions, achievement scores</li>
-    <li>Gap: 5C career success dimensions, difference between importance and achievement scores</li>
-    <li>Individual factors: Individual-level variables (e.g., age, gender)</li>
+    <li>Gap: 5C career success dimensions, difference between achievement and importance scores</li>
+    <li>Individual factors: Individual-level variables, aggregated at country-level (e.g., perceived supervisor support)</li>
     <li>Country factors: Country-level variables (e.g., GDP, Gini coefficient)</li>
   </ul>
   <li>Based on the preselected factor/dimension, choose the specific variable from the dropdown menu below</li>
   <li>Display country names and selected country scores when moving the mouse over the map</li>
+  <li><b>"Colors"</b><br>
+    Choose between two color-schemes (default or optimized for color-blind users)</li>
   <li><b>"Download Map"</b><br>
     Download the map as an HTML-file</li>
 </ul>
@@ -35,7 +37,7 @@ Features:
   <li><b>"Achievement":</b><br>
     Select/deselect the 5C career success dimension(s) you are interested in (achievement scores). </li>
   <li><b>"Gap":</b><br>
-    Select/deselect the 5C career success gaps (i.e., importance vs achievement) dimension(s) you are interested in.</li>
+    Select/deselect the 5C career success gaps (i.e., achievement minus importance) in the dimension(s) you are interested in.</li>
   <li><b>"x-Axis":</b><br>
     Choose whether selected countries or selected 5C dimensions should appear on the x-axis.</li>
   <li><b>"Download Plot":</b><br>
@@ -55,8 +57,8 @@ Features:
   <ul>
     <li>Importance: 5C career success dimensions, importance scores</li>
     <li>Achievement: 5C career success dimensions, achievement scores</li>
-    <li>Gap: 5C career success dimensions, difference between importance and achievement scores</li>
-    <li>Individual factors: Individual-level variables (e.g., age, gender)</li>
+    <li>Gap: 5C career success dimensions, difference between achievement and importance scores</li>
+    <li>Individual factors: Individual-level variables, aggregated at country-level (e.g., perceived supervisor support)</li>
     <li>Country factors: Country-level variables (e.g., GDP, Gini coefficient)</li>
   </ul></li>
   <li><b>"y-Axis":</b><br>
@@ -64,8 +66,8 @@ Features:
   <ul>
     <li>Importance: 5C career success dimensions, importance scores</li>
     <li>Achievement: 5C career success dimensions, achievement scores</li>
-    <li>Gap: 5C career success dimensions, difference between importance and achievement scores</li>
-    <li>Individual factors: Individual-level variables (e.g., age, gender)</li>
+    <li>Gap: 5C career success dimensions, difference between achievement and importance scores</li>
+    <li>Individual factors: Individual-level variables, aggregated at country-level (e.g., perceived supervisor support)</li>
     <li>Country factors: Country-level variables (e.g., GDP, Gini coefficient)</li>
   </ul></li>
   <li><b>"Size":</b><br>
@@ -74,8 +76,8 @@ Features:
     <li>None: No third variable will be added, all data points are of equal size</li>
     <li>Importance: 5C career success dimensions, importance scores</li>
     <li>Achievement: 5C career success dimensions, achievement scores</li>
-    <li>Gap: 5C career success dimensions, difference between importance and achievement scores</li>
-    <li>Individual factors: Individual-level variables (e.g., age, gender)</li>
+    <li>Gap: 5C career success dimensions, difference between achievement and importance scores</li>
+    <li>Individual factors: Individual-level variables, aggregated at country-level (e.g., perceived supervisor support)</li>
     <li>Country factors: Country-level variables (e.g., GDP, Gini coefficient)</li>
   </ul></li>
   <li><b>"Download Plot":</b><br>
