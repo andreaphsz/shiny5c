@@ -3,7 +3,9 @@ library(data.table)  # browseVignettes("data.table")
 
 ### 5c data
 fn <- "5c_merged_dataset_jan_2018_31_countries_visualization.sav"
-data.spss <- read.spss(fn, use.value.labels = FALSE, to.data.frame = TRUE)
+#data.spss <- read.spss(fn, use.value.labels = FALSE, to.data.frame = TRUE)
+#saveRDS(data.spss, file="data_spss.rda")
+data.spss <- readRDS("data_spss.rda")
 data.all <- data.table(data.spss)
 
 ## compute scales
@@ -209,7 +211,17 @@ library(readxl)
 fn <- "macro_factors_visualization.xlsx"
 data.mac <- data.table(read_xlsx(fn))
 names(data.mac) <- c("COUNTRY","GDP","GCS","PGini","Pov","Edu")
+data.mac[data.mac=="N/A"] <- NA
+data.mac$Edu <- as.numeric(data.mac$Edu)
+
+### country clusters
+fn <- "country_clusters.xlsx"
+data.cc <- data.table(read_xlsx(fn))
+data.mac2 <- data.mac[data.cc, on = "COUNTRY"]
+
 
 ###  merge
-data.mrg <- data.agg[data.mac, on = "COUNTRY"]
+data.mrg <- data.agg[data.mac2, on = "COUNTRY"]
+
+saveRDS(data.mrg, file="data_mrg.rda")
 
