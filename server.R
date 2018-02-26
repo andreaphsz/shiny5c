@@ -206,7 +206,7 @@ shinyServer(function(input, output, session) {
     output$x3 <- renderUI({
         if(is.null(input$xsel3)) return(NULL)
         idx <- which(input$xsel3 == sel1)
-        selectInput("x3", "", varnames[[idx]], varnames[[idx]][1])
+        selectInput("x3", "", all.list[[idx]], all.list[[idx]][1])
     })
 
     output$hline23 <- renderText({
@@ -214,13 +214,13 @@ shinyServer(function(input, output, session) {
     })
 
     output$ysel3 <- renderUI({
-        radioButtons("ysel3", "y-Axis", sel1, selected = sel1[1])
+        radioButtons("ysel3", "y-Axis", sel1, selected = sel1[2])
     })
 
     output$y3 <- renderUI({
         if(is.null(input$ysel3)) return(NULL)
         idx <- which(input$ysel3 == sel1)
-        selectInput("y3", "", varnames[[idx]], varnames[[idx]][1])
+        selectInput("y3", "", all.list[[idx]], all.list[[idx]][1])
     })
 
     output$hline33 <- renderText({
@@ -235,7 +235,7 @@ shinyServer(function(input, output, session) {
         if(is.null(input$zsel3)) return(NULL)
         if(input$zsel3 == "(none)") return(NULL)
         idx <- which(input$zsel3 == sel1)
-        selectInput("z3", "", varnames[[idx]], varnames[[idx]][1])
+        selectInput("z3", "", all.list[[idx]], all.list[[idx]][1])
     })
 
     output$dimxfac <- renderPlot({
@@ -380,10 +380,10 @@ shinyServer(function(input, output, session) {
     ## z-index is set so we are sure are tooltip will be on top
     style <- paste0("position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85);",                     "left:", left_px + 2, "px; top:", top_px + 2, "px;")
     ## actual tooltip created as wellPanel
-    size <- ifelse(input$zsel3=="(none)", "(none)", round(point[,input$z3],2))
-    wellPanel(style = style, HTML(paste0("<b>",point$Country_Name,"</b>", "<br>",
-                                         "x: ", round(point[, input$x3],2), "<br>",
-                                         "y: ", round(point[, input$y3],2), "<br>",
+    size <- ifelse(input$zsel3=="(none)", "(none)", round(point[, input$z3, with=FALSE],2))
+    wellPanel(style = style, HTML(paste0("<b>", point$COUNTRY,"</b>", "<br>",
+                                         "x: ", round(point[, input$x3, with=FALSE],2), "<br>",
+                                         "y: ", round(point[, input$y3, with=FALSE],2), "<br>",
                                          "Size: ", size))
     )
   })

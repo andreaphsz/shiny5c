@@ -1,9 +1,7 @@
-library(readxl)
-data.all <- read_excel("WorldMap_DummyData_andrea_v2.xlsx")
-names(data.all) <- gsub(" ","_",names(data.all))
-
+## read data from disk
 data.all <- readRDS("data_mrg.rda")
 
+## define global variables
 i.list <- list(
     "Financial Success" = "fsu_i",
     "Entrepreneurship" = "es_i",
@@ -54,3 +52,5 @@ cnt.list <- list(
     "Poverty rate" = "Pov",
     "Education/Skills" = "Edu"
 )
+
+all.list <- list(i.list, a.list, gap.list, ind.list, cnt.list)
