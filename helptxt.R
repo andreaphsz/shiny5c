@@ -151,6 +151,11 @@ This visualisation tool is highly inspired by the <a href="https://rstudio.stat.
 <tr><td>LifeSat</td><td>LifeSat</td><td>1..7</td></tr>
 <tr><td>Health</td><td>Health</td><td>1..5</td></tr>
 <tr><td>Educ</td><td>Educ</td><td>1..7</td></tr>
+<tr><td>GDP</td><td>GDP</td><td>(USD)</td></tr>
+<tr><td>Global Competitiveness Score</td><td>GCS</td><td>1..7</td></tr>
+<tr><td>Post-transfer Gini</td><td>PGini</td><td>0..100</td></tr>
+<tr><td>Poverty rate</td><td>Pov</td><td>(%)</td></tr>
+<tr><td>Education/Skills</td><td>Edu</td><td>1..7</td></tr>
 </table>
 </div>
 
