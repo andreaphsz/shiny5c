@@ -108,10 +108,10 @@ varl[[2]] <- "WorkSuc"
 ## 11. How many occupations have you worked in
 varl[[3]] <- "Occchange"
 
-## How many employers (including yourself) have you worked for?
+## 12. How many employers (including yourself) have you worked for?
 varl[[4]] <- "Empchange"
 
-## How many promotions have you received during your whole working life?
+## 13. How many promotions have you received during your whole working life?
 varl[[5]] <- "Promotion"
 
 ## 14. Please indicate to what extent you have practiced the following behaviors in the past year.

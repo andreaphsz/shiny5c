@@ -120,6 +120,38 @@ This visualisation tool is highly inspired by the <a href="https://rstudio.stat.
 
 <div class="tab-pane" data-value="datasum" id="tab-9998-3">
 <h4>Data summary</h4>
+<table>
+<col width="200">
+<col width="100">
+<tr><th>Name</th><th>Variable</th><th>Scale</th></tr>
+<tr><td>Financial Success</td><td>fsu_i / fsu_a</td><td>1..5</td></tr>
+<tr><td>Financial Success</td><td>fsu_gap</td><td>-4..4</td></tr>
+<tr><td>Entrepreneurship</td><td>es_i / es_a</td><td>1..5</td></tr>
+<tr><td>Entrepreneurship</td><td>es_gap</td><td>-4..4</td></tr>
+<tr><td>Positive Work Relationships</td><td>pwr_i / pwr_a</td><td>1..5</td></tr>
+<tr><td>Positive Work Relationships</td><td>pwr_gap</td><td>-4..4</td></tr>
+<tr><td>Positive Impact</td><td>pi_i / pi_a</td><td>1..5</td></tr>
+<tr><td>Positive Impact</td><td>pi_gap</td><td>-4..4</td></tr>
+<tr><td>Learning and Development</td><td>ld_i / ld_a</td><td>1..5</td></tr>
+<tr><td>Learning and Development</td><td>ld_gap</td><td>-4..4</td></tr>
+<tr><td>Work-Life Balance</td><td>wlb_i / wlb_a</td><td>1..5</td></tr>
+<tr><td>Work-Life Balance</td><td>wlb_gap</td><td>-4..4</td></tr>
+<tr><td>Financial Security</td><td>fse_i / fse_a</td><td>1..5</td></tr>
+<tr><td>Financial Security</td><td>fse_gap</td><td>-4..4</td></tr>
+<tr><td>WorkSuc</td><td>WorkSuc</td><td>1..7</td></tr>
+<tr><td>Occchange</td><td>Occchange</td><td>0,1,2..</td></tr>
+<tr><td>Empchange</td><td>Empchange</td><td>0,1,2..</td></tr>
+<tr><td>Promotion</td><td>Promotion</td><td>0,1,2..</td></tr>
+<tr><td>CareerBeh</td><td>CareerBeh</td><td>1..7</td></tr>
+<tr><td>IntQuit</td><td>IntQuit</td><td>1..7</td></tr>
+<tr><td>Supervisor</td><td>Supervisor</td><td>1..7</td></tr>
+<tr><td>OrgCom</td><td>OrgCom</td><td>1..7</td></tr>
+<tr><td>Employ</td><td>Employ</td><td>1..7</td></tr>
+<tr><td>Orginvest</td><td>Orginvest</td><td>1..5</td></tr>
+<tr><td>LifeSat</td><td>LifeSat</td><td>1..7</td></tr>
+<tr><td>Health</td><td>Health</td><td>1..5</td></tr>
+<tr><td>Educ</td><td>Educ</td><td>1..7</td></tr>
+</table>
 </div>
 
 </div>
