@@ -225,3 +225,10 @@ data.mrg <- data.agg[data.mac2, on = "COUNTRY"]
 
 saveRDS(data.mrg, file="data_mrg.rda")
 
+### import variable descriptions
+library(readxl)
+
+fn <- "Data-information-table_V01.xlsx"
+info.tab <- read_xlsx(fn)
+saveRDS(info.tab, file = "info_tab.rda")
+

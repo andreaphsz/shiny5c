@@ -1,13 +1,13 @@
-help.html <- '
+help.html <- paste0('
 <div class="tab-content" data-tabsetid="9999">
 
 <div class="tab-pane active" data-value="map" id="tab-9999-1">
 <h4>The tab [Map <i class="fa fa-globe" aria-hidden="true"></i>] provides a geographical perspective on the data, based on an interactive map.</h4>
 Features:
 <ul>
-<li><b>"Region":</b><br>
+<li><b>"Region"</b><br>
   Select the region on the map that you are interested in</li>
-<li><b>"Dimension/factor":</b><br>
+<li><b>"Dimension/factor"</b><br>
   Select which factor or dimension you want to look at
   <ul>
     <li>Importance: 5C career success dimensions, importance scores</li>
@@ -22,6 +22,8 @@ Features:
     Choose between two color-schemes (default or optimized for color-blind users)</li>
   <li><b>"Download Map"</b><br>
     Download the map as an HTML-file</li>
+  <li><b>"Variables"</b><br>
+    For an overview of all variables, variable descriptions, sample items and scale references, see the <i>Variables</i> section inside this tab.</li>
 </ul>
 </div>
 
@@ -29,19 +31,21 @@ Features:
 <h4>The tab [Success Factors <i class="fa fa-bar-chart" aria-hidden="true"></i>] allows the comparison of a broad range of career success variables between one or multiple countries.</h4>
 Features:
 <ul>
-  <li><b>"Countries":</b><br>
+  <li><b>"Countries"</b><br>
     Select/deselect the country/countries you are interested in.<br>
     To add a country, click in the “countries” field and select the country from the dropdown menu that appears. To remove a country from the selection, highlight the name in the “country” field and delete it.</li>
-  <li><b>"Importance":</b><br>
+  <li><b>"Importance"</b><br>
     Select/deselect the 5C career success dimension(s) you are interested in (importance scores).</li>
-  <li><b>"Achievement":</b><br>
+  <li><b>"Achievement"</b><br>
     Select/deselect the 5C career success dimension(s) you are interested in (achievement scores). </li>
-  <li><b>"Gap":</b><br>
+  <li><b>"Gap"</b><br>
     Select/deselect the 5C career success gaps (i.e., achievement minus importance) in the dimension(s) you are interested in.</li>
-  <li><b>"x-Axis":</b><br>
+  <li><b>"x-Axis"</b><br>
     Choose whether selected countries or selected 5C dimensions should appear on the x-axis.</li>
-  <li><b>"Download Plot":</b><br>
+  <li><b>"Download Plot"</b><br>
     Download the selected plot as a png-file.</li>
+  <li><b>"Variables"</b><br>
+    For an overview of all variables, variable descriptions, sample items and scale references, see the <i>Variables</i> section inside this tab.</li>
 </ul>
 </div>
 
@@ -49,10 +53,10 @@ Features:
 <h4>The tab [Multidimensional Views <i class="fa fa-line-chart" aria-hidden="true"></i>] allows a multi-dimensional view on preselected multiple variables and countries.</h4>
 Features:
 <ul>
-  <li><b>"Clusters/Countries":</b><br>
+  <li><b>"Clusters/Countries"</b><br>
     Select/deselect whether the focus is on country clusters (e.g., Latin America) or individual countries.<br>
     To remove a country or cluster from the selection, highlight the name in the “clusters/countries” field and delete it. To add a country or cluster, click in the field and select the country or cluster from the dropdown menu that appears.</li>
-  <li><b>"x-Axis":</b><br>
+  <li><b>"x-Axis"</b><br>
     Select which factor or dimension you want to look at on the x-axis:
   <ul>
     <li>Importance: 5C career success dimensions, importance scores</li>
@@ -61,7 +65,7 @@ Features:
     <li>Individual factors: Individual-level variables, aggregated at country-level (e.g., perceived supervisor support)</li>
     <li>Country factors: Country-level variables (e.g., GDP, Gini coefficient)</li>
   </ul></li>
-  <li><b>"y-Axis":</b><br>
+  <li><b>"y-Axis"</b><br>
     Select which factor or dimension you want to look at on the y-axis:
   <ul>
     <li>Importance: 5C career success dimensions, importance scores</li>
@@ -70,7 +74,7 @@ Features:
     <li>Individual factors: Individual-level variables, aggregated at country-level (e.g., perceived supervisor support)</li>
     <li>Country factors: Country-level variables (e.g., GDP, Gini coefficient)</li>
   </ul></li>
-  <li><b>"Size":</b><br>
+  <li><b>"Size"</b><br>
     Select which factor or dimension should be used as the third dimension. The selected variable will be displayed using the size of the data points in the matrix:
   <ul>
     <li>None: No third variable will be added, all data points are of equal size</li>
@@ -80,12 +84,23 @@ Features:
     <li>Individual factors: Individual-level variables, aggregated at country-level (e.g., perceived supervisor support)</li>
     <li>Country factors: Country-level variables (e.g., GDP, Gini coefficient)</li>
   </ul></li>
-  <li><b>"Download Plot":</b><br>
+  <li><b>"Download Plot"</b><br>
     Download the selected plot as a png-file.</li>
+  <li><b>"Variables"</b><br>
+    For an overview of all variables, variable descriptions, sample items and scale references, see the <i>Variables</i> section inside this tab.</li>
 </ul>
 </div>
-</div>
+
+<div class="tab-pane" data-value="infotab" id="tab-9999-4">
+<h4>Variables</h4>
+', print.xtable(xtable(info.tab), type="html", print.results=FALSE, include.rownames=FALSE,
+                html.table.attributes="style='border: 0; padding: 10px;'"),
 '
+</div>
+
+</div>
+')
+
 about.html <- '
 <div class="tab-content" data-tabsetid="9998">
 
@@ -116,47 +131,6 @@ about.html <- '
 <div class="tab-pane" data-value="techdet" id="tab-9998-2">
 <h4>Technical details</h4>
 This visualisation tool is highly inspired by the <a href="https://rstudio.stat.washington.edu/shiny/wppExplorer/inst/explore/" target="_blank">WPP 2017 Explorer</a>. It runs on a <a href="https://www.rstudio.com/products/shiny/" target="_blank">Shiny server</a> and uses <a href="https://developers.google.com/chart/" target="_blank">Google Charts</a> to show the world map. The world map implementation is done via the fantastic R package <a href="https://cran.r-project.org/web/packages/googleVis/" target="_blank">googleVis: R Interface to Google Charts</a>. The bar charts and the scatter plots are build using <a href="https://cran.r-project.org/web/packages/ggplot2/index.html" target="_blank">ggplot2</a>. The default color scheme is implemented via <a href="https://cran.r-project.org/web/packages/viridis/index.html" target="_blank">viridis: Default Color Maps from \'matplotlib\'</a>. And finally the logos on the top are placed as desrcibed under <a href="http://candrea.ch/blog/adding-multiple-company-logos-to-shiny-app/" target="_blank">Adding multiple Company Logos to Shiny App</a>.
-</div>
-
-<div class="tab-pane" data-value="datasum" id="tab-9998-3">
-<h4>Data summary</h4>
-<table>
-<col width="200">
-<col width="100">
-<tr><th>Name</th><th>Variable</th><th>Scale</th></tr>
-<tr><td>Financial Success</td><td>fsu_i / fsu_a</td><td>1..5</td></tr>
-<tr><td>Financial Success</td><td>fsu_gap</td><td>-4..4</td></tr>
-<tr><td>Entrepreneurship</td><td>es_i / es_a</td><td>1..5</td></tr>
-<tr><td>Entrepreneurship</td><td>es_gap</td><td>-4..4</td></tr>
-<tr><td>Positive Work Relationships</td><td>pwr_i / pwr_a</td><td>1..5</td></tr>
-<tr><td>Positive Work Relationships</td><td>pwr_gap</td><td>-4..4</td></tr>
-<tr><td>Positive Impact</td><td>pi_i / pi_a</td><td>1..5</td></tr>
-<tr><td>Positive Impact</td><td>pi_gap</td><td>-4..4</td></tr>
-<tr><td>Learning and Development</td><td>ld_i / ld_a</td><td>1..5</td></tr>
-<tr><td>Learning and Development</td><td>ld_gap</td><td>-4..4</td></tr>
-<tr><td>Work-Life Balance</td><td>wlb_i / wlb_a</td><td>1..5</td></tr>
-<tr><td>Work-Life Balance</td><td>wlb_gap</td><td>-4..4</td></tr>
-<tr><td>Financial Security</td><td>fse_i / fse_a</td><td>1..5</td></tr>
-<tr><td>Financial Security</td><td>fse_gap</td><td>-4..4</td></tr>
-<tr><td>WorkSuc</td><td>WorkSuc</td><td>1..7</td></tr>
-<tr><td>Occchange</td><td>Occchange</td><td>0,1,2..</td></tr>
-<tr><td>Empchange</td><td>Empchange</td><td>0,1,2..</td></tr>
-<tr><td>Promotion</td><td>Promotion</td><td>0,1,2..</td></tr>
-<tr><td>CareerBeh</td><td>CareerBeh</td><td>1..7</td></tr>
-<tr><td>IntQuit</td><td>IntQuit</td><td>1..7</td></tr>
-<tr><td>Supervisor</td><td>Supervisor</td><td>1..7</td></tr>
-<tr><td>OrgCom</td><td>OrgCom</td><td>1..7</td></tr>
-<tr><td>Employ</td><td>Employ</td><td>1..7</td></tr>
-<tr><td>Orginvest</td><td>Orginvest</td><td>1..5</td></tr>
-<tr><td>LifeSat</td><td>LifeSat</td><td>1..7</td></tr>
-<tr><td>Health</td><td>Health</td><td>1..5</td></tr>
-<tr><td>Educ</td><td>Educ</td><td>1..7</td></tr>
-<tr><td>GDP</td><td>GDP</td><td>(USD)</td></tr>
-<tr><td>Global Competitiveness Score</td><td>GCS</td><td>1..7</td></tr>
-<tr><td>Post-transfer Gini</td><td>PGini</td><td>0..100</td></tr>
-<tr><td>Poverty rate</td><td>Pov</td><td>(%)</td></tr>
-<tr><td>Education/Skills</td><td>Edu</td><td>1..7</td></tr>
-</table>
 </div>
 
 </div>

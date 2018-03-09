@@ -54,3 +54,6 @@ cnt.list <- list(
 )
 
 all.list <- list(i.list, a.list, gap.list, ind.list, cnt.list)
+
+## read data info table from disk
+info.tab <- readRDS("info_tab.rda")

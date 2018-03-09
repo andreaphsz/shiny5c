@@ -299,6 +299,9 @@ shinyServer(function(input, output, session) {
       <li>
         <a href="#tab-9999-3" data-toggle="tab" data-value="multi">Multidimensional Views <i class="fa fa-line-chart" aria-hidden="true"></i></a>
       </li>
+      <li>
+        <a href="#tab-9999-4" data-toggle="tab" data-value="infotab">Variables</a>
+      </li>
     </ul>
  ')
     })
@@ -317,9 +320,6 @@ shinyServer(function(input, output, session) {
       </li>
       <li>
         <a href="#tab-9998-2" data-toggle="tab" data-value="techdet">Technical details</a>
-      </li>
-      <li>
-        <a href="#tab-9998-3" data-toggle="tab" data-value="datasum">Data summary</a>
       </li>
     </ul>
  ')
