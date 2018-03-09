@@ -37,7 +37,8 @@ shinyServer(function(input, output, session) {
                                     width = 800, height = 580,
                                     region = input$region,
                                     legend = "{numberFormat:'#.##'}",
-                                    colorAxis = colAx)
+                                    colorAxis = colAx,
+                                    defaultColor = "#F5F5F5")
                      )
 
         output$downloadMap <- downloadHandler(
