@@ -4,6 +4,7 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(viridis)
+library(xtable)
 #library(plotly)
 #library(RColorBrewer)
 
