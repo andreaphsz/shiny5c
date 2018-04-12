@@ -154,7 +154,7 @@ shinyServer(function(input, output, session) {
             content = function(con) {
                 png(con, height = 2*500, width = 2*930, res = 144)
                 lab <- paste0(sprintf('\u00A9'), " by 5C www.5c.careers")
-                p <- p + annotate("text", x = Inf, y = 0, hjust=1.1, vjust=1.8, label = lab,
+                p <- p + annotate("text", x = Inf, y = min(p$data$Value), hjust=1.1, vjust=1.8, label = lab,
                                   color="grey50")
                 print(p)
                 dev.off()
