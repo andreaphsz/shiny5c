@@ -107,15 +107,18 @@ about.html <- '
 <div class="tab-pane active" data-value="aboutus" id="tab-9998-1">
 <h4>About us</h4>
 <p>This visualization tool is based on the 5C project (Cross-Cultural Collaboration on Contemporary Careers), a global research collaboration that aims to study careers and career success across various cultures and generations. For this visualization, data of 15,900 [update with latest figures] individuals (49.8% female, average age: 41 years) from 25 countries [update with latest figures] from all global cultural clusters were analyzed. Participants work in one of four broad occupational fields, namely, as managers, professionals, clerical/service workers or skilled labor. Data are not representative for each country. Data were collected between summer 2015 and autumn 2016, using an online survey available in the native language(s) for each country.</p>
-<p><b>Further information:</b>
+<br>
+<p><b>Disclaimer</b><p>
+<p>The 5C consortium is providing this data visualisation for your convenience only. Please note however that no warranty, representation, guarantee or legally binding description is provided by publishing this informational data, nor does the 5C consortium acknowledge or accept any liability related thereto. The detailed documentation and data of 5C-related studies can be found in our officially published academic journals and books.</p>
+<p><b>Further information</b>
 <ul>
   <li><a href="https://5c.careers/" target="_blank">5C.careers</a></li>
 </ul></p>
-<p><b>Contact:</b>
+<p><b>Contact</b>
 <ul>
   <li>[WOLFGANG? JON? …?]</li>
 </ul></p>
-<p><b>Tool hosting and maintenance:</b>
+<p><b>Tool hosting and maintenance</b>
 <ul>
 <li>Dominik Zellhofer, WU Vienna, Vienna, Austria (<a href="https://www.wu.ac.at/" target="_blank">www.wu.ac.at</a>)</li>
 </ul></p>
